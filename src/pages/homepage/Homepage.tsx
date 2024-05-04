@@ -1,6 +1,6 @@
-import people from '../assets/homepage/people.svg'
-import menu from '../assets/homepage/menu.svg'
-import scraps from '../assets/homepage/scraps.svg'
+import people from '../../assets/homepage/people.svg'
+import menu from '../../assets/homepage/menu.svg'
+import scraps from '../../assets/homepage/scraps.svg'
 
 import { Card } from './card'
 
