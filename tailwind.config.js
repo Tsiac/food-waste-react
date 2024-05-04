@@ -1,0 +1,22 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}"
+  ],
+  theme: {
+    colors: {
+      transparent: 'transparent',
+      current: 'currentColor',
+      'white': '#F0F7F4',
+      'purple': '#270722',
+      'grey': '#817F82',
+      'yellow': '#F6AE2D',
+      'yellowfade': '#FEDE87',
+      'green': '#7CB518',
+    },
+    extend: {},
+  },
+  plugins: [],
+}
+
