@@ -63,11 +63,6 @@ function Menu(props: Props){
     axios.post("https://localhost:7101/menuitems", menuInfo)
       .then(res => {
         console.log(res);
-
-        axios.get("https://localhost:7101/menuitems")
-          .then(res => {
-            console.log(res);
-          });
       })
       .catch(e => {
         console.log(e);
@@ -80,7 +75,6 @@ function Menu(props: Props){
         <Header 
             title={"Create your menu"}
         />
-
 
         <div className="container bg-yellowfade border rounded-lg text-green font-bold pt-5">
           
