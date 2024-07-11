@@ -3,7 +3,7 @@ import menu from '../../assets/homepage/menu.svg'
 import scraps from '../../assets/homepage/scraps.svg'
 
 
-import { Card } from './Card'
+import { Card } from './card'
 import { Header } from '../../components/Header'
 
 function HomePage() {

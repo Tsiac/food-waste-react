@@ -13,8 +13,6 @@ interface Props {}
 
 function People(props: Props){
 
-
-
     const [people, setPeople] = useState<MenuDTO[]>([]);
 
     function GetMenus() {

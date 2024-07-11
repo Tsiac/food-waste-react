@@ -26,6 +26,17 @@ type MenuDTO = {
   isFish: boolean
 }
 
+type IngredientDTO = {
+  name: string,
+  quantity: number,
+  counnter: string
+}
+
+type DishDTO = {
+  name: string,
+  ingredients: IngredientDTO[]
+}
+
 function Menu(props: Props){
 
   const [response, setResponse] = useState<MenuDTO>();
@@ -36,6 +47,7 @@ function Menu(props: Props){
   const [isMeat, setIsMeat] = useState<boolean>(false);
   const [isVeg, setIsVeg] = useState<boolean>(false);
 
+  const [dishes, setDishes] = useState<DishDTO[]>([]);
   const [menuInfo, setMenuInfo] = useState<MenuDTO>({
     username: "Zach Ward",
     name: "",
@@ -45,6 +57,10 @@ function Menu(props: Props){
     isFish: false
   });
    
+  const [newDishName, setNewDishName] = useState<string>("");
+
+
+
   const handleMenuNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMenuName(event.target.value);
   }
@@ -56,8 +72,8 @@ function Menu(props: Props){
       newMenu.isVeg = isVeg;
       newMenu.isMeat = isMeat;
 
-      console.log("menu: ", newMenu);
-  }, [menuName, isFish, isVeg, isMeat]);
+      console.log("rerender")
+  }, [menuName, isFish, isVeg, isMeat, dishes]);
 
   function AddMenu() {
     axios.post("https://localhost:7101/menuitems", menuInfo)
@@ -69,6 +85,19 @@ function Menu(props: Props){
       });
   }
 
+  function AddDish(name: string) {
+    const dish = {
+      name: name,
+      ingredients: []
+    };
+
+    let newDishes = [...dishes];
+    newDishes.push(dish);
+
+    setDishes(newDishes);
+    console.log("add dish", newDishes)
+  }
+
 
   return (
     <>
@@ -78,9 +107,28 @@ function Menu(props: Props){
 
         <div className="container bg-yellowfade border rounded-lg text-green font-bold pt-5">
           
-          <div className="flex h-15 justify-between p-3 ">
+          <div className="flex h-15 justify-evenly p-3">
             <p>Menu Name</p>
-            <input className="text-decoration-line border border-green-300 rounded-lg px-2 focus:outline-none" onChange={handleMenuNameChange}></input>
+            <input className="text-decoration-line border-b-2 border-green-300 bg-yellowfade px-2 focus:outline-none" onChange={handleMenuNameChange}></input>
+          </div>
+          
+          <div className="flex m-2 py-2 border-y-2 justify-evenly">
+          {dishes.map((dish, i) => {
+            return (
+              <div key={i} >
+                <p className="underline">{dish.name}</p>
+                <p>Ing 1</p>
+                <p>Ing 1</p>
+                <p>Ing 1</p>
+                <p>Ing 1</p>
+                <button className="border-solid border-2 rounded-full m-2 p-2" onClick={() => AddDish("deesh")}>+</button>
+              </div>
+            );
+          })}
+          </div>
+
+          <div>
+            <button className="border-solid border-2 rounded-lg p-2" onClick={() => AddDish("deesh")}>Add a new dish</button>
           </div>
 
           <div className="container flex justify-between px-5">
