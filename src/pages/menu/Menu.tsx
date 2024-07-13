@@ -1,5 +1,5 @@
 import { Header } from "../../components/Header"
-import { Card } from "../homepage/Card"
+import { Card } from "../homepage/card"
 import people from '../../assets/homepage/people.svg'
 
 import fish_on from '../../assets/menu/fish-on.svg'
@@ -14,6 +14,8 @@ import minus from '../../assets/menu/minus-solid.svg'
 
 import { useEffect, useState } from "react"
 import axios from "axios"
+
+import { Link } from "react-router-dom"
 
 interface Props {}
 
@@ -128,7 +130,12 @@ function Menu(props: Props){
           </div>
 
           <div>
-            <button className="border-solid border-2 rounded-lg p-2" onClick={() => AddDish("deesh")}>Add a new dish</button>
+            <Link to={"/dish"} >
+            <button className="border-solid border-2 rounded-lg p-2">Add a new dish</button>
+            </Link>
+
+            
+            
           </div>
 
           <div className="container flex justify-between px-5">
@@ -139,7 +146,7 @@ function Menu(props: Props){
                   <img className="m-5 h-6 w-6" src={plus} alt="" />
                 </a>
           </div>
-        </div>  
+        </div>
     </>
   )
 }
