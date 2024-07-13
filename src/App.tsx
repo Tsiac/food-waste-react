@@ -1,13 +1,17 @@
-import HomePage from './pages/homepage/Homepage'
 import './App.css'
 import { Outlet } from "react-router"
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+
 
 function App() {
   // const [count, setCount] = useState(0)
 
   return (
     <>
-      <Outlet />
+      <LocalizationProvider dateAdapter={AdapterDayjs} >
+        <Outlet />
+      </LocalizationProvider>
     </>
   )
 }

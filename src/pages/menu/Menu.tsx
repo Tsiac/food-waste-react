@@ -16,6 +16,12 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 import { Link } from "react-router-dom";
+import {
+  DatePicker,
+  LocalizationProvider,
+  MobileDatePicker,
+} from "@mui/x-date-pickers";
+import dayjs from "dayjs";
 
 interface Props {}
 
@@ -49,6 +55,8 @@ function Menu(props: Props) {
   const [isVeg, setIsVeg] = useState<boolean>(false);
 
   //TODO: Date, Type, Tags
+  const currentDate = new Date().toDateString();
+  const [date, setDate] = useState(dayjs(currentDate));
 
   const [menuInfo, setMenuInfo] = useState<MenuDTO>({
     username: "Zach Ward",
@@ -78,11 +86,19 @@ function Menu(props: Props) {
 
       <div className="container bg-yellowfade border rounded-lg text-green font-bold pt-2">
         <div className="flex h-15 justify-evenly p-3">
-          <p>Menu Name</p>
           <input
-            className="text-decoration-line border-b-2 border-green-300 bg-yellowfade px-2 focus:outline-none"
+            className="w-2/5 text-decoration-line border-b-2 border-green-300 bg-yellowfade px-2 focus:outline-none"
             onChange={handleMenuNameChange}
+            placeholder="Menu Name"
           ></input>
+          <div className="w-2/5">
+            <MobileDatePicker
+              label="When?"
+              value={date}
+              onChange={(newVal) => setDate(newVal!)}
+              format="DD-MM-YYYY"
+            />
+          </div>
         </div>
 
         {dishes.map((dish, i) => {
@@ -199,10 +215,10 @@ function Menu(props: Props) {
   enum MealType {
     Meat,
     Veg,
-    Fish
+    Fish,
   }
 
-  function setMealType(type: MealType){
+  function setMealType(type: MealType) {
     setIsMeat(type === MealType.Meat);
     setIsVeg(type === MealType.Veg);
     setIsFish(type === MealType.Fish);
@@ -236,7 +252,7 @@ function Menu(props: Props) {
     setDishes(newDishes);
   }
 
-  function setDishName(dishNumber: number, dishName: string){
+  function setDishName(dishNumber: number, dishName: string) {
     let newDishes = [...dishes];
 
     newDishes[dishNumber].name = dishName;
@@ -262,8 +278,13 @@ function Menu(props: Props) {
   }
 
   function addDishToMenu() {
+    console.log(date)
+    let dateString = date.format('DD-MM-YYYY');
+
     console.log({
-      dishes, menuInfo
+      dishes,
+      menuInfo,
+      dateString
     });
   }
 }
