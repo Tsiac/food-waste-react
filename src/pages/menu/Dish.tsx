@@ -1,19 +1,15 @@
 import { useEffect, useState } from "react";
 import { Header } from "../../components/Header";
 
-interface Props {
+type IngredientDTO = {
+    name: string,
+    quantity: string,
+    counter: string
 }
-
-function Dish(props: Props){
+export const Dish = () => {
 
   const [title, setTitle] = useState("")
-  const [ingredients, setIngredients] = useState([
-    {
-        ingredientName: "test ingredient",
-        ingredientAmount: 500,
-        ingredientCounter: "g"
-    }
-  ])
+  const [ingredients, setIngredients] = useState<Array<IngredientDTO>>([])
 
   useEffect(() => {
   }, []);
@@ -26,8 +22,13 @@ function Dish(props: Props){
         />
         
         <div className="flex justify-evenly p-2">
-            <span>Title</span>
-            <input type="text" onChange={(e) => setTitle(e.target.value)}></input>
+            <span className="p-2">Dish</span>
+            <input 
+                className="p-2"
+                type="text" 
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder="What are you making?"
+            />
         </div>
 
         {ingredients.map((ing,i) => {
@@ -35,8 +36,31 @@ function Dish(props: Props){
             return (
             <div key={i} className="flex justify-start py-2">
                 
-                <input type="text" onChange={(e) => setIngredient(i, e.target.value)} value={ing.ingredientName}></input>
-                <span>{ing.ingredientAmount} {ing.ingredientCounter}</span>
+                <input
+                    className="m-2 w-3/5"
+                    type="text"
+                    name="name" 
+                    onChange={(e) => setIngredient(i, e)} 
+                    value={ing.name}
+                    placeholder="chicken"
+                />
+                <input
+                    className="m-2 w-1/5"
+                    type="text"
+                    name="quantity" 
+                    onChange={(e) => setIngredient(i, e)} 
+                    value={ing.quantity}
+                    placeholder="400"
+                />
+                <input
+                    className="m-2 w-1/5"
+                    type="text"
+                    name="counter" 
+                    onChange={(e) => setIngredient(i, e)} 
+                    value={ing.counter}
+                    placeholder="g"
+                />
+
             </div>)
         })}
 
@@ -53,20 +77,25 @@ function Dish(props: Props){
     </>
   )
 
-  function setIngredient(i: number, ingredientName: string)
-  {
-    let newIng = [...ingredients];
-    newIng[i].ingredientName = ingredientName
+    function setIngredient(i: number, event: React.ChangeEvent<HTMLInputElement>)
+    {
+        let newIng = [...ingredients];
 
-    setIngredients(newIng);
-  }
+        let dto: IngredientDTO = {
+            ...newIng[i],
+            [event.target.name]: event.target.value
+        };
+        
+        newIng[i] = dto;
+        
+        setIngredients(newIng);
+    }
   
     function addIngredient() {
         setIngredients([...ingredients, {
-            
-            ingredientName: "added test ingredient",
-            ingredientAmount: 400,
-            ingredientCounter: "ml"
+            name: "",
+            quantity: "",
+            counter: ""
         }])
     }
 
