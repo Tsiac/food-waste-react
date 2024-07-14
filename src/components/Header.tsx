@@ -27,7 +27,7 @@ export const Header = ({title, callback = "/"}: Props) =>
                 </div>
             </Link>
         </div>
-        <div className="flex justify-end h-20 w-auto mx-5">
+        <div className="flex justify-end h-20 w-auto mx-5 mb-2 ">
             <Link to={callback} className="m-auto ">
                 <div >
                     <p className="text-2xl font-bold text-yellow">{title}</p>
