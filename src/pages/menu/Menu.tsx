@@ -1,6 +1,4 @@
 import { Header } from "../../components/Header";
-import { Card } from "../homepage/card";
-import people from "../../assets/homepage/people.svg";
 
 import fish_on from "../../assets/menu/fish-on.svg";
 import meat_on from "../../assets/menu/meat-on.svg";
@@ -10,40 +8,17 @@ import meat_off from "../../assets/menu/meat-off.svg";
 import veg_off from "../../assets/menu/veg-off.svg";
 
 import plus from "../../assets/menu/plus-solid.svg";
-import minus from "../../assets/menu/minus-solid.svg";
 
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-import { Link } from "react-router-dom";
 import {
-  DatePicker,
-  LocalizationProvider,
   MobileDatePicker,
 } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
+import { DishDTO, IngredientDTO, MenuDTO } from "../../dtos/MenuDTO";
 
 interface Props {}
-
-type IngredientDTO = {
-  name: string;
-  quantity: string;
-  counter: string;
-};
-
-type MenuDTO = {
-  username: string;
-  name: string;
-  isComplete: boolean;
-  isVeg: boolean;
-  isMeat: boolean;
-  isFish: boolean;
-};
-
-type DishDTO = {
-  name: string;
-  ingredients: IngredientDTO[];
-};
 
 function Menu(props: Props) {
   const [response, setResponse] = useState<MenuDTO>();
@@ -59,6 +34,7 @@ function Menu(props: Props) {
   const [date, setDate] = useState(dayjs(currentDate));
 
   const [menuInfo, setMenuInfo] = useState<MenuDTO>({
+    id: 0,
     username: "Zach Ward",
     name: "",
     isComplete: false,
@@ -281,11 +257,22 @@ function Menu(props: Props) {
     console.log(date)
     let dateString = date.format('DD-MM-YYYY');
 
-    console.log({
+    let request = {
+      ...menuInfo,
       dishes,
-      menuInfo,
       dateString
-    });
+    }
+
+    console.log("sending: ", request);
+
+    axios
+      .post("https://localhost:7101/menuitems", request)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   }
 }
 
