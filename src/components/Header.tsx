@@ -19,14 +19,17 @@ function getCallbackLocationName(callback: string)
 
 export const Header = ({title, callback = "/"}: Props) => 
     <>
-        <div className="flex justify-start h-7 w-auto ml-5">
-            <Link to={callback}>
-                <div className="flex align-middle">
-                    <img src={backArrow} className="m-1 h-4 w-4 bg-white"></img>
-                    <span>Back to {getCallbackLocationName(callback)}</span>
-                </div>
-            </Link>
-        </div>
+        {title !== "Homepage"  && 
+            <div className="flex justify-start h-7 w-auto ml-5">
+                <Link to={callback}>
+                    <div className="flex align-middle">
+                        <img src={backArrow} className="m-1 h-4 w-4 bg-white"></img>
+                        <span>Back to {getCallbackLocationName(callback)}</span>
+                    </div>
+                </Link>
+            </div>
+        }
+        
         <div className="flex justify-end h-20 w-auto mx-5 mb-2 ">
             <Link to={callback} className="m-auto ">
                 <div >
