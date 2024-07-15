@@ -12,6 +12,7 @@ export const router = createBrowserRouter([
         element: <App />,
         children: [
             { path: "food-waste-react", element: <HomePage />},
+            { path: "", element: <HomePage />},
             { path: "menu", element: <Menu />},
             { path: "browsemenus", element: <MenuBrowse />},
             { path: "profile", element: <Profile />},
