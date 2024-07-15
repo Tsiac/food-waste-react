@@ -16,7 +16,11 @@ import orzo from '../../assets/orzo.jpeg'
 
 const images: Array<string> = [chicken,orzo]
 
-const randomIndex: number = Math.floor(Math.random() * images.length);
+// const randomIndex: number = 
+
+function getRandomIndex(){
+    return Math.floor(Math.random() * images.length);
+}
 
 interface Props {}
 
@@ -66,7 +70,7 @@ function MenuBrowse(props: Props){
                     <div key={i} className="relative rounded-lg bg-yellowfade h-1/5 w-1/3 p-1 mx-2"> 
                         <span className="text-green font-bold inline-block underline decoration-2">11/07/2024</span>
                         <p className="text-green font-bold inline-block max-w-24 truncate">{m.name}</p>
-                        <img className="rounded-lg mt-2 size-full max-h-20" src={images[randomIndex]}></img>
+                        <img className="rounded-lg mt-2 size-full max-h-20" src={images[getRandomIndex()]}></img>
                         <div className="absolute right-0 bottom-0">
                             {m.isVeg ? <img className="my-1 mx-3 h-4 w-4" src={veg} alt="" /> : <p></p>}
                             {m.isMeat ? <img className="my-1 mx-3 h-4 w-4" src={meat} alt="" /> : <p></p>}
@@ -80,38 +84,38 @@ function MenuBrowse(props: Props){
             <span className="flex justify-start mt-5 mb-2">All upcoming</span>
             <div className="flex mb-4"> 
                 <div className="rounded-lg bg-yellowfade h-1/5 w-1/3 p-1 mx-2"> 
-                    <span className="text-green font-bold inline-block underline decoration-2">11/07/2024</span>
+                    <span className="text-green font-bold inline-block underline decoration-2">18/08/2024</span>
                     <span className="text-green font-bold inline-block">Zach's Menu</span>
-                    <img className="rounded-lg mt-2 size-full max-h-20" src={orzo}></img>
+                    <img className="rounded-lg mt-2 size-full max-h-20" src={images[getRandomIndex()]}></img>
                 </div>
                 
                 <div className="rounded-lg bg-yellowfade h-1/5 w-1/3 p-1 mx-2"> 
-                    <span className="text-green font-bold inline-block underline decoration-2">11/07/2024</span>
+                    <span className="text-green font-bold inline-block underline decoration-2">19/08/2024</span>
                     <span className="text-green font-bold inline-block">Zach's Menu</span>
-                    <img className="rounded-lg mt-2 size-full max-h-20" src={chicken}></img>
+                    <img className="rounded-lg mt-2 size-full max-h-20" src={images[getRandomIndex()]}></img>
                 </div>
                 
                 <div className="rounded-lg bg-yellowfade h-1/5 w-1/3 p-1 mx-2"> 
-                    <span className="text-green font-bold inline-block underline decoration-2">11/07/2024</span>
+                    <span className="text-green font-bold inline-block underline decoration-2">21/08/2024</span>
                     <span className="text-green font-bold inline-block">Zach's Menu</span>
-                    <img className="rounded-lg mt-2 size-full max-h-20" src={chicken}></img>
+                    <img className="rounded-lg mt-2 size-full max-h-20" src={images[getRandomIndex()]}></img>
                 </div>
             </div>
             <div className="flex"> 
                 <div className="rounded-lg bg-yellowfade h-1/5 w-1/3 p-1 mx-2"> 
-                    <span className="text-green font-bold inline-block underline decoration-2">11/07/2024</span>
+                    <span className="text-green font-bold inline-block underline decoration-2">22/08/2024</span>
                     <span className="text-green font-bold inline-block">Zach's Menu</span>
                     <img className="rounded-lg mt-2 size-full max-h-20" src={chicken}></img>
                 </div>
                 
                 <div className="rounded-lg bg-yellowfade h-1/5 w-1/3 p-1 mx-2"> 
-                    <span className="text-green font-bold inline-block underline decoration-2">11/07/2024</span>
+                    <span className="text-green font-bold inline-block underline decoration-2">24/08/2024</span>
                     <span className="text-green font-bold inline-block">Zach's Menu</span>
                     <img className="rounded-lg mt-2 size-full max-h-20" src={chicken}></img>
                 </div>
                 
                 <div className="rounded-lg bg-yellowfade h-1/5 w-1/3 p-1 mx-2"> 
-                    <span className="text-green font-bold inline-block underline decoration-2">11/07/2024</span>
+                    <span className="text-green font-bold inline-block underline decoration-2">01/09/2024</span>
                     <span className="text-green font-bold inline-block">Zach's Menu</span>
                     <img className="rounded-lg mt-2 size-full max-h-20" src={chicken}></img>
                 </div>
