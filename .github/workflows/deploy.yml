@@ -3,7 +3,7 @@ name: Deploy x
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build:
