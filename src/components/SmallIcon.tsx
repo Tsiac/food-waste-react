@@ -5,7 +5,7 @@ type Props = {
     title: string
 }
 
-export const Header = ({title}: Props) => 
+export const SmallIcon = ({title}: Props) => 
     <>
         <div className="flex justify-end h-20 w-auto m-5">
             <Link to={"/"} className="m-auto">

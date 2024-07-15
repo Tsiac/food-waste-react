@@ -3,7 +3,7 @@ import menu from '../../assets/homepage/menu.svg'
 import scraps from '../../assets/homepage/scraps.svg'
 
 
-import { Card } from './Card'
+import { Card } from './card'
 import { Header } from '../../components/Header'
 
 function HomePage() {
@@ -14,8 +14,8 @@ function HomePage() {
           title={"Homepage"}
         />
         <Card 
-            link={"/people"}
-            text={"find your people"}
+            link={"/browsemenus"}
+            text={"find a menu"}
             img={people}
         />
         <Card 
@@ -24,7 +24,7 @@ function HomePage() {
             img={menu}
         />
         <Card 
-            text={"home your scraps"}
+            text={"scraps help"}
             img={scraps}
         />
     </>
