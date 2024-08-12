@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { Header } from "../../components/Header";
-import { DishDTO, MenuDTO } from "../../dtos/MenuDTO"
+import { DishDTO } from "../../dtos/MenuDTO"
 import axios from "axios";
 
-import profile from "../../assets/profile.svg"
 
 import fish from '../../assets/menu/fish-off.svg'
 import meat from '../../assets/menu/meat-off.svg'
@@ -22,8 +21,6 @@ function getRandomIndex(){
     return Math.floor(Math.random() * images.length);
 }
 
-interface Props {}
-
 type Menus = {
     id: number,
     username: string,
@@ -36,7 +33,7 @@ type Menus = {
     dateString: string
 }
 
-function MenuBrowse(props: Props){
+function MenuBrowse(){
 
     const [menus, setMenus] = useState<Menus[]>([]);
 

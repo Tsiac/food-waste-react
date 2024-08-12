@@ -1,8 +1,6 @@
 import { Header } from "../../components/Header";
 
-interface Props {}
-
-function Profile(props: Props){
+function Profile(){
 
   return (
     <>

@@ -18,10 +18,7 @@ import {
 import dayjs from "dayjs";
 import { DishDTO, IngredientDTO, MenuDTO } from "../../dtos/MenuDTO";
 
-interface Props {}
-
-function Menu(props: Props) {
-  const [response, setResponse] = useState<MenuDTO>();
+function Menu() {
 
   const [menuName, setMenuName] = useState<string>("");
 
@@ -54,6 +51,8 @@ function Menu(props: Props) {
     newMenu.isFish = isFish;
     newMenu.isVeg = isVeg;
     newMenu.isMeat = isMeat;
+
+    setMenuInfo(newMenu);
   }, [menuName, isFish, isVeg, isMeat, dishes]);
 
   return (
@@ -154,7 +153,7 @@ function Menu(props: Props) {
             className="m-5 h-6 w-6"
             src={isMeat ? meat_on : meat_off}
             alt=""
-            onClick={(e) => setMealType(MealType.Meat)}
+            onClick={() => setMealType(MealType.Meat)}
           />
           <img
             className="m-5 h-6 w-6"
@@ -178,6 +177,7 @@ function Menu(props: Props) {
 
   function addNewDish() {
     const dish = {
+      id: "1",
       name: "",
       ingredients: [],
     };
@@ -242,6 +242,7 @@ function Menu(props: Props) {
     let ingredients = [
       ...newDishes[dishNumber].ingredients,
       {
+        id: "",
         name: "",
         quantity: "",
         counter: "",
