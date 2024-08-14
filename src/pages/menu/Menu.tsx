@@ -17,9 +17,12 @@ import {
 } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import { DishDTO, IngredientDTO, MenuDTO } from "../../dtos/MenuDTO";
+import { useAuth0 } from "@auth0/auth0-react";
 
 function Menu() {
 
+  const { user } = useAuth0();
+  
   const [menuName, setMenuName] = useState<string>("");
 
   const [isFish, setIsFish] = useState<boolean>(false);
@@ -32,7 +35,7 @@ function Menu() {
 
   const [menuInfo, setMenuInfo] = useState<MenuDTO>({
     id: 0,
-    username: "Zach Ward",
+    username: user?.sub!,
     name: "",
     isComplete: false,
     isVeg: false,
@@ -174,7 +177,7 @@ function Menu() {
       </div>
     </>
   );
-
+ 
   function addNewDish() {
     const dish = {
       id: "1",
