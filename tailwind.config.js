@@ -15,6 +15,7 @@ export default {
       'yellowfade': '#ffe7a4',
       'green': '#7CB518',
       'greenhover': '#619506',
+      'black': '#000000'
     },
     extend: {},
   },
