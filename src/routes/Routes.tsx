@@ -14,9 +14,10 @@ export const router = createBrowserRouter([
             { path: "food-waste-react", element: <HomePage />},
             { path: "", element: <HomePage />},
             { path: "menu", element: <Menu />},
-            { path: "browsemenus", element: <MenuBrowse />},
+            { path: "browse-menus", element: <MenuBrowse />},
             { path: "profile", element: <Profile />},
             { path: "dish", element: <Dish />},
+            { path: "scraps", element: <Dish />},
         ]
     }
 ])

@@ -22,7 +22,7 @@ function getRandomIndex(){
 }
 
 type Menus = {
-    id: number,
+    id: any,
     username: string,
     name: string,
     isComplete: boolean,
@@ -57,7 +57,7 @@ function MenuBrowse(){
     return (
         <>
             <Header 
-                title={"People"}
+                title={"find a menu"}
             />
             <span className="flex justify-start mb-2">This week</span>
             

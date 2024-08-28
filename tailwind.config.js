@@ -17,7 +17,11 @@ export default {
       'greenhover': '#619506',
       'black': '#000000'
     },
-    extend: {},
+    extend: {
+      fontFamily: {
+        htw: "HealTheWorld"
+      }
+    },
   },
   plugins: [],
 }

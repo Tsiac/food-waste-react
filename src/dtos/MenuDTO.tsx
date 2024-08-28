@@ -1,5 +1,5 @@
 export interface MenuDTO {
-    id: number,
+    id: any,
     username: string,
     name: string,
     isComplete: boolean,

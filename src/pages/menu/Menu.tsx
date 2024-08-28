@@ -34,7 +34,7 @@ function Menu() {
   const [date, setDate] = useState(dayjs(currentDate));
 
   const [menuInfo, setMenuInfo] = useState<MenuDTO>({
-    id: 0,
+    id: crypto.randomUUID(),
     username: user?.sub!,
     name: "",
     isComplete: false,
@@ -180,7 +180,7 @@ function Menu() {
  
   function addNewDish() {
     const dish = {
-      id: "1",
+      id: crypto.randomUUID(),
       name: "",
       ingredients: [],
     };
@@ -245,7 +245,7 @@ function Menu() {
     let ingredients = [
       ...newDishes[dishNumber].ingredients,
       {
-        id: "",
+        id: crypto.randomUUID(),
         name: "",
         quantity: "",
         counter: "",
