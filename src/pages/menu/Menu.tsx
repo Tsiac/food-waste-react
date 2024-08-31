@@ -41,6 +41,10 @@ function Menu() {
     isVeg: false,
     isMeat: false,
     isFish: false,
+    maxAttendees: 1,
+    attendees: [
+      user?.sub!
+    ]
   });
   const [dishes, setDishes] = useState<Array<DishDTO>>([]);
 
@@ -205,7 +209,7 @@ function Menu() {
 
   function AddMenu() {
     axios
-      .post("https://localhost:7101/menuitems", menuInfo)
+      .post("https://localhost:7101/menus", menuInfo)
       .then((res) => {
         console.log(res);
       })
@@ -270,7 +274,7 @@ function Menu() {
     console.log("sending: ", request);
 
     axios
-      .post("https://localhost:7101/menuitems", request)
+      .post("https://localhost:7101/menus", request)
       .then((res) => {
         console.log(res);
       })

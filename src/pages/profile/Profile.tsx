@@ -81,7 +81,7 @@ function Profile(){
           title={"Profile"}
       />
 
-<p className="mt-5 text-2xl font-bold text-green">Your store cupboard</p>
+<h1 className="mt-5 text-2xl font-bold text-green">YOUR STORE CUPBOARD</h1>
 
 
       {/* add this section to isAuthenticated */}

@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 
-type CardProps = {
+type HomePageCardProps = {
   text: string;
   img: string;
   link?: string;
 };
 
-export const MenuCard = ({ text, img, link = "/" }: CardProps) => (
+export const HomePageCard = ({ text, img, link = "/" }: HomePageCardProps) => (
   <Link to={link}>
     <div className="relative max-w-xl mx-auto mt-7">
       <img

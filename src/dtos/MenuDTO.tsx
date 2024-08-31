@@ -6,6 +6,8 @@ export interface MenuDTO {
     isMeat: boolean,
     isVeg: boolean,
     isFish: boolean,
+    maxAttendees: number,
+    attendees: string[]
 }
 
 export interface DishDTO {
