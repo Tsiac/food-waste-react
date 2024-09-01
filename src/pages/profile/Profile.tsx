@@ -21,7 +21,7 @@ function Profile(){
   })
 
   const [storeCupboard, setStoreCupboard] = useState<IngredientDTO[]>(thisthing);
-  const [idToken, setIdToken] = useState("");
+  const [customUsername, setCustomUsername] = useState("");
   
   if (isLoading) {
     return <div>Loading ...</div>;
@@ -83,11 +83,10 @@ function Profile(){
       try {
         if (isAuthenticated) {
           const claims = await getIdTokenClaims();
-          console.log(claims)
-          setIdToken(claims?.__raw!); // __raw contains the JWT ID token as a string
+          setCustomUsername(claims?.custom_username!);
         }
       } catch (error) {
-        console.error('Error fetching ID token:', error);
+        console.error('Error fetching custom name:', error);
       }
     };
 
@@ -137,7 +136,7 @@ function Profile(){
           <p>nickname: {user!.username}</p>
           <p>email: {user!.email}</p>
           <p>user_id: {user!.sub}</p>
-          <p>idToken: {idToken}</p>
+          <p>idToken: {customUsername}</p>
           
         <div>{JSON.stringify(user)}</div>
         </div>}

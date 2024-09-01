@@ -26,7 +26,7 @@ export interface IngredientDTO {
     counter: string
 }
 
-export interface Comment {
+export interface CommentDTO {
     id: number,
     name: string,
     comment: string,

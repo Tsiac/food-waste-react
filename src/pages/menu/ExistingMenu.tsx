@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { MenuDTO } from "../../dtos/MenuDTO";
+import { CommentDTO, MenuDTO } from "../../dtos/MenuDTO";
 import axios from "axios";
 import { Header } from "../../components/Header";
 
@@ -14,36 +14,53 @@ import veg from "./assets/veg-off.svg";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const ExistingMenu = () => {
-  const { user, isAuthenticated } = useAuth0();
+  const { getIdTokenClaims, user, isAuthenticated } = useAuth0();
   const { id } = useParams();
 
   const [menu, setMenu] = useState<MenuDTO>();
+  const [comments, setComments] = useState<CommentDTO[]>([]);
   const [comment, setComment] = useState<string>("");
+  const [customUsername, setCustomUsername] = useState("");
 
   function ParseAndReformatDate(dateString: string) {
+    if(dateString === "just now")
+      return dateString;
+    
     var date = new Date(dateString);
-
-    console.log(date.toUTCString());
-
     return date.toUTCString();
   }
 
   function GetMenu() {
     axios.get(`https://localhost:7101/menus/${id}`).then((res) => {
-      console.log("menu data", res.data);
       setMenu(res.data);
+      setComments(res.data.comments)
+      console.log(res.data)
     });
   }
 
   function SubmitComment() {
     let commentSubmitDTO = {
-      name: user?.sub!,
+      name: customUsername,
       comment: comment,
     };
     axios
       .post(`https://localhost:7101/menus/comment/${id}`, commentSubmitDTO)
       .then((res) => {
         console.log("added comment", comment);
+
+        let currentComments = [...comments]
+
+        let newComment: CommentDTO = {
+            id: 0,
+            name: customUsername,
+            comment: comment,
+            dateCreated: "just now"
+        }
+        currentComments.push(newComment);
+        
+        console.log("nc:",newComment);
+
+        setComments(currentComments);
         setComment("");
       });
   }
@@ -51,6 +68,22 @@ const ExistingMenu = () => {
   useEffect(() => {
     GetMenu();
   }, []);
+  
+  
+  useEffect(() => {
+    const fetchIdToken = async () => {
+      try {
+        if (isAuthenticated) {
+          const claims = await getIdTokenClaims();
+          setCustomUsername(claims?.custom_username!);
+        }
+      } catch (error) {
+        console.error('Error fetching custom name:', error);
+      }
+    };
+
+    fetchIdToken();
+  }, [getIdTokenClaims, isAuthenticated]);
 
   return (
     <>
@@ -105,9 +138,9 @@ const ExistingMenu = () => {
       <div className="bg-white text-black w-full rounded-xl my-2 border-4 border-yellow flex-col">
         <div className="underline font-bold">Comments</div>
         <div className="divide-y">
-          {menu?.comments.map((comment, i) => {
+          {comments && comments.map((comment, i) => {
             return (
-              <div>
+              <div key={i}>
                 <div className="text-left underline text-xs">
                   {ParseAndReformatDate(comment.dateCreated)}
                 </div>
@@ -125,6 +158,7 @@ const ExistingMenu = () => {
               className="w-4/5 p-1 h-12"
               rows="2"
               placeholder="Add a new comment..."
+              value={comment}
             ></textarea>
             <button
               onClick={() => SubmitComment()}
@@ -136,9 +170,6 @@ const ExistingMenu = () => {
         </div>
       </div>
 
-      <div className="bg-white text-black w-full rounded-xl my-2 border-4 border-yellow flex-col">
-        <div>Add a comment</div>
-      </div>
     </>
   );
 };
