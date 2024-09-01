@@ -31,12 +31,12 @@ const MenuCard = ({ dateOffset, menuInfo }: MenuCardProps) => {
   const { user, isAuthenticated } = useAuth0();
 
   const [isJoined, setIsJoined] = useState<boolean>(false);
-  const [isExpanded, setIsExpanded] = useState<boolean>(false);
+  // const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   function SubscribeToMenu(id: string) {
     axios
       .get(`https://localhost:7101/menus/join/${id}/${user?.sub}`)
-      .then((res) => {
+      .then(() => {
         setIsJoined(true);
       });
   }

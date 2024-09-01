@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Header } from "../../components/Header";
-import { DishDTO, MenuDTO } from "../../dtos/MenuDTO"
+import { MenuDTO } from "../../dtos/MenuDTO"
 import axios from "axios";
 
 
 import MenuCard from "./components/MenuCard";
-import { useAuth0 } from "@auth0/auth0-react";
+// import { useAuth0 } from "@auth0/auth0-react";
 
 function MenuBrowse(){
     // const { user, isAuthenticated, isLoading } = useAuth0();
@@ -15,8 +15,7 @@ function MenuBrowse(){
     function GetMenus() {
         axios.get("https://localhost:7101/menus")
             .then(res => {
-            console.log("get: ",res.data)
-            setMenus(res.data);
+                setMenus(res.data);
             });
     }
 

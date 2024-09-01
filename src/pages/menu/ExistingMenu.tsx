@@ -5,7 +5,7 @@ import axios from "axios";
 import { Header } from "../../components/Header";
 
 import chicken from "./assets/chickenpie.jpeg";
-import Dish from "./Dish";
+// import Dish from "./Dish";
 // import orzo from "../assets/orzo.jpeg";
 
 import fish from "./assets/fish-off.svg";
@@ -14,7 +14,7 @@ import veg from "./assets/veg-off.svg";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const ExistingMenu = () => {
-  const { getIdTokenClaims, user, isAuthenticated } = useAuth0();
+  const { getIdTokenClaims, isAuthenticated } = useAuth0();
   const { id } = useParams();
 
   const [menu, setMenu] = useState<MenuDTO>();
@@ -45,7 +45,7 @@ const ExistingMenu = () => {
     };
     axios
       .post(`https://localhost:7101/menus/comment/${id}`, commentSubmitDTO)
-      .then((res) => {
+      .then(() => {
         console.log("added comment", comment);
 
         let currentComments = [...comments]
@@ -156,7 +156,7 @@ const ExistingMenu = () => {
             <textarea
               onChange={(e) => setComment(e.target.value)}
               className="w-4/5 p-1 h-12"
-              rows="2"
+              rows={2}
               placeholder="Add a new comment..."
               value={comment}
             ></textarea>

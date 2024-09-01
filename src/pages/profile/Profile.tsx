@@ -27,13 +27,13 @@ function Profile(){
     return <div>Loading ...</div>;
   }
   
-  function GetUserStoreCupboard() {
-    axios.get("https://localhost:7101/storecupboard/"+ user?.sub!)
-          .then(res => {
-            console.log(`get {user?.sub!} store cupboard: `,res.data)
-            setStoreCupboard(res.data);
-          });
-  }
+  // function GetUserStoreCupboard() {
+  //   axios.get("https://localhost:7101/storecupboard/"+ user?.sub!)
+  //         .then(res => {
+  //           console.log(`get {user?.sub!} store cupboard: `,res.data)
+  //           setStoreCupboard(res.data);
+  //         });
+  // }
 
   function UpdateUserStoreCupboard() {
     console.log('store cupboard: ', storeCupboard)
