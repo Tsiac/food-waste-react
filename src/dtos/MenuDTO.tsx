@@ -7,7 +7,9 @@ export interface MenuDTO {
     isVeg: boolean,
     isFish: boolean,
     maxAttendees: number,
-    attendees: string[]
+    attendees: string[],
+    dishes: DishDTO[],
+    comments: Comment[]
 }
 
 export interface DishDTO {
@@ -22,4 +24,11 @@ export interface IngredientDTO {
     name: string,
     quantity: string,
     counter: string
+}
+
+export interface Comment {
+    id: number,
+    name: string,
+    comment: string,
+    dateCreated: string
 }

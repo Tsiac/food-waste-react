@@ -29,7 +29,6 @@ function Menu() {
   const [isMeat, setIsMeat] = useState<boolean>(false);
   const [isVeg, setIsVeg] = useState<boolean>(false);
 
-  //TODO: Date, Type, Tags
   const currentDate = new Date().toDateString();
   const [date, setDate] = useState(dayjs(currentDate));
 
@@ -44,7 +43,9 @@ function Menu() {
     maxAttendees: 1,
     attendees: [
       user?.sub!
-    ]
+    ],
+    dishes: [],
+    comments: []
   });
   const [dishes, setDishes] = useState<Array<DishDTO>>([]);
 

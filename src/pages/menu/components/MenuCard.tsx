@@ -50,44 +50,44 @@ const MenuCard = ({ dateOffset, menuInfo }: MenuCardProps) => {
   return (
     <>
       <Link to={`/menu/${menuInfo.id}`} className="flex-column w-1/3">
-          <div className="relative rounded-lg bg-yellowfade p-1 mx-2">
-            <span className="text-green font-bold inline-block underline decoration-2">
-              {getDate(dateOffset)}
-            </span>
-            <p className="text-green font-bold inline-block max-w-24 truncate">
-              {(menuInfo.name ?? "Zach") + "'s Menu"}
-            </p>
-            <img
-              className="rounded-lg mt-2 size-full max-h-20"
-              src={images[getRandomIndex()]}
-            ></img>
-            <div className="absolute right-0 bottom-0">
-              {menuInfo.isVeg ? (
-                <img className="my-1 mx-3 h-4 w-4" src={veg} alt="" />
-              ) : (
-                <p></p>
-              )}
-              {menuInfo.isMeat ? (
-                <img className="my-1 mx-3 h-4 w-4" src={meat} alt="" />
-              ) : (
-                <p></p>
-              )}
-              {menuInfo.isFish ? (
-                <img className="my-1 mx-3 h-4 w-4" src={fish} alt="" />
-              ) : (
-                <p></p>
-              )}
-            </div>
+        <div className="relative rounded-lg bg-yellowfade p-1 mx-2">
+          <span className="text-green font-bold inline-block underline decoration-2">
+            {getDate(dateOffset)}
+          </span>
+          <p className="text-green font-bold inline-block max-w-24 truncate">
+            {(menuInfo.name ?? "Zach") + "'s Menu"}
+          </p>
+          <img
+            className="rounded-lg mt-2 size-full max-h-20"
+            src={images[getRandomIndex()]}
+          ></img>
+          <div className="absolute right-0 bottom-0">
+            {menuInfo.isVeg ? (
+              <img className="my-1 mx-3 h-4 w-4" src={veg} alt="" />
+            ) : (
+              <p></p>
+            )}
+            {menuInfo.isMeat ? (
+              <img className="my-1 mx-3 h-4 w-4" src={meat} alt="" />
+            ) : (
+              <p></p>
+            )}
+            {menuInfo.isFish ? (
+              <img className="my-1 mx-3 h-4 w-4" src={fish} alt="" />
+            ) : (
+              <p></p>
+            )}
           </div>
-          {isAuthenticated && !isJoined && (
-            <button
-              className="bg-black p-1 rounded-lg"
-              onClick={() => SubscribeToMenu(menuInfo.id)}
-            >
-              Join Menu
-            </button>
-          )}
-          {isAuthenticated && isJoined && <p>Joined!</p>}
+        </div>
+        {isAuthenticated && !isJoined && (
+          <button
+            className="bg-black p-1 rounded-lg"
+            onClick={() => SubscribeToMenu(menuInfo.id)}
+          >
+            Join Menu
+          </button>
+        )}
+        {isAuthenticated && isJoined && <p>Joined!</p>}
       </Link>
     </>
   );

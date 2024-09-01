@@ -8,7 +8,7 @@ import axios from "axios";
 import { IngredientDTO } from "../../dtos/MenuDTO";
 
 function Profile(){
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  const { getIdTokenClaims, user, isAuthenticated, isLoading } = useAuth0();
   
   const thisthing = [1,2,3,4,5].map((x,i) => {
     const item: IngredientDTO = {
@@ -21,6 +21,7 @@ function Profile(){
   })
 
   const [storeCupboard, setStoreCupboard] = useState<IngredientDTO[]>(thisthing);
+  const [idToken, setIdToken] = useState("");
   
   if (isLoading) {
     return <div>Loading ...</div>;
@@ -73,7 +74,25 @@ function Profile(){
   useEffect(() => {
       // GetUserStoreCupboard();
       console.log('store cupboard: ', storeCupboard)
+
+      console.log(user)
   }, [storeCupboard]);
+
+  useEffect(() => {
+    const fetchIdToken = async () => {
+      try {
+        if (isAuthenticated) {
+          const claims = await getIdTokenClaims();
+          console.log(claims)
+          setIdToken(claims?.__raw!); // __raw contains the JWT ID token as a string
+        }
+      } catch (error) {
+        console.error('Error fetching ID token:', error);
+      }
+    };
+
+    fetchIdToken();
+  }, [getIdTokenClaims, isAuthenticated]);
 
   return (
     <>
@@ -115,8 +134,12 @@ function Profile(){
       {isAuthenticated && 
         <div className="mt-10">
           <p>username: {user!.name}</p>
+          <p>nickname: {user!.username}</p>
           <p>email: {user!.email}</p>
           <p>user_id: {user!.sub}</p>
+          <p>idToken: {idToken}</p>
+          
+        <div>{JSON.stringify(user)}</div>
         </div>}
       
       <Footer />
