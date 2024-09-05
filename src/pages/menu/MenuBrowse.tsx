@@ -5,6 +5,7 @@ import axios from "axios";
 
 
 import MenuCard from "./components/MenuCard";
+import Footer from "../../components/Footer";
 // import { useAuth0 } from "@auth0/auth0-react";
 
 function MenuBrowse(){
@@ -51,14 +52,14 @@ function MenuBrowse(){
                         )
                     })}
             </div>
-            <div className="flex"> 
+            <div className="flex mb-2"> 
                 {menus.map((m,i) => {
                         return (
                             <MenuCard key={i} dateOffset={i} menuInfo={m}/>
                         )
                     })}
             </div>
-
+<Footer />
         </>
     )
 }

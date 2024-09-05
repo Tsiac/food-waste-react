@@ -103,7 +103,7 @@ function Profile(){
 
 
       {/* add this section to isAuthenticated */}
-      <div className="mt-5 grid grid-cols-3 gap-3">
+      <div className="mt-5 mb-2 grid grid-cols-3 gap-3">
         
         {storeCupboard && storeCupboard.map((x,i) => {
           return <div key={i}>
@@ -130,7 +130,7 @@ function Profile(){
     
       </div>
       
-      {isAuthenticated && 
+      {/* {isAuthenticated && 
         <div className="mt-10">
           <p>username: {user!.name}</p>
           <p>nickname: {user!.username}</p>
@@ -140,7 +140,7 @@ function Profile(){
           
         <div>{JSON.stringify(user)}</div>
         </div>}
-      
+       */}
       <Footer />
     </>
   )

@@ -6,6 +6,8 @@ import MenuBrowse from "../pages/menu/MenuBrowse"
 import Profile from "../pages/profile/Profile"
 import Dish from "../pages/menu/Dish"
 import ExistingMenu from "../pages/menu/ExistingMenu"
+import Scraps from "../pages/scraps/Scraps"
+import BlogPost from "../pages/scraps/BlogPost"
 
 export const router = createBrowserRouter([
     {
@@ -19,7 +21,8 @@ export const router = createBrowserRouter([
             { path: "browse-menus", element: <MenuBrowse />},
             { path: "profile", element: <Profile />},
             { path: "dish", element: <Dish />},
-            { path: "scraps", element: <Dish />},
+            { path: "scraps", element: <Scraps />},
+            { path: "blog-post/:name", element: <BlogPost />},
         ]
     }
 ])

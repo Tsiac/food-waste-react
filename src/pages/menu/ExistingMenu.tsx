@@ -12,6 +12,7 @@ import fish from "./assets/fish-off.svg";
 import meat from "./assets/meat-off.svg";
 import veg from "./assets/veg-off.svg";
 import { useAuth0 } from "@auth0/auth0-react";
+import Footer from "../../components/Footer";
 
 const ExistingMenu = () => {
   const { getIdTokenClaims, isAuthenticated } = useAuth0();
@@ -23,9 +24,8 @@ const ExistingMenu = () => {
   const [customUsername, setCustomUsername] = useState("");
 
   function ParseAndReformatDate(dateString: string) {
-    if(dateString === "just now")
-      return dateString;
-    
+    if (dateString === "just now") return dateString;
+
     var date = new Date(dateString);
     return date.toUTCString();
   }
@@ -33,8 +33,8 @@ const ExistingMenu = () => {
   function GetMenu() {
     axios.get(`https://localhost:7101/menus/${id}`).then((res) => {
       setMenu(res.data);
-      setComments(res.data.comments)
-      console.log(res.data)
+      setComments(res.data.comments);
+      console.log(res.data);
     });
   }
 
@@ -48,17 +48,17 @@ const ExistingMenu = () => {
       .then(() => {
         console.log("added comment", comment);
 
-        let currentComments = [...comments]
+        let currentComments = [...comments];
 
         let newComment: CommentDTO = {
-            id: 0,
-            name: customUsername,
-            comment: comment,
-            dateCreated: "just now"
-        }
+          id: 0,
+          name: customUsername,
+          comment: comment,
+          dateCreated: "just now",
+        };
         currentComments.push(newComment);
-        
-        console.log("nc:",newComment);
+
+        console.log("nc:", newComment);
 
         setComments(currentComments);
         setComment("");
@@ -68,8 +68,7 @@ const ExistingMenu = () => {
   useEffect(() => {
     GetMenu();
   }, []);
-  
-  
+
   useEffect(() => {
     const fetchIdToken = async () => {
       try {
@@ -78,7 +77,7 @@ const ExistingMenu = () => {
           setCustomUsername(claims?.custom_username!);
         }
       } catch (error) {
-        console.error('Error fetching custom name:', error);
+        console.error("Error fetching custom name:", error);
       }
     };
 
@@ -138,38 +137,44 @@ const ExistingMenu = () => {
       <div className="bg-white text-black w-full rounded-xl my-2 border-4 border-yellow flex-col">
         <div className="underline font-bold">Comments</div>
         <div className="divide-y">
-          {comments && comments.map((comment, i) => {
-            return (
-              <div key={i}>
-                <div className="text-left underline text-xs">
-                  {ParseAndReformatDate(comment.dateCreated)}
+          {comments &&
+            comments.map((comment, i) => {
+              return (
+                <div key={i}>
+                  <div className="text-left underline text-xs">
+                    {ParseAndReformatDate(comment.dateCreated)}
+                  </div>
+                  <div className="flex text-left">
+                    <div className="w-1/5">{comment.name}:</div>
+                    <div className="w-4/5">{comment.comment}</div>
+                  </div>
                 </div>
-                <div className="flex text-left">
-                  <div className="w-1/5">{comment.name}:</div>
-                  <div className="w-4/5">{comment.comment}</div>
-                </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          {isAuthenticated && (
+            <div className="flex w-full">
+              <textarea
+                onChange={(e) => setComment(e.target.value)}
+                className="w-4/5 p-1 h-12"
+                rows={2}
+                placeholder="Add a new comment..."
+                value={comment}
+              ></textarea>
+              <button
+                onClick={() => SubmitComment()}
+                className="w-1/5 p-1 h-12 rounded-md text-yellow bg-purple"
+              >
+                Add
+              </button>
+            </div>
+          )}
+          {!isAuthenticated && <p className="p-1 bg-yellow text-purple">please log in to comment</p>}
 
-          <div className="flex w-full">
-            <textarea
-              onChange={(e) => setComment(e.target.value)}
-              className="w-4/5 p-1 h-12"
-              rows={2}
-              placeholder="Add a new comment..."
-              value={comment}
-            ></textarea>
-            <button
-              onClick={() => SubmitComment()}
-              className="w-1/5 p-1 h-12 rounded-md text-yellow bg-purple"
-            >
-              Add
-            </button>
-          </div>
         </div>
+        
       </div>
-
+      
+      <Footer />
     </>
   );
 };

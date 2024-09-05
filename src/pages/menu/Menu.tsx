@@ -18,10 +18,11 @@ import {
 import dayjs from "dayjs";
 import { DishDTO, IngredientDTO, MenuDTO } from "../../dtos/MenuDTO";
 import { useAuth0 } from "@auth0/auth0-react";
+import Footer from "../../components/Footer";
 
 function Menu() {
-
-  const { user } = useAuth0();
+  
+  const { user, isAuthenticated } = useAuth0();
   
   const [menuName, setMenuName] = useState<string>("");
 
@@ -67,7 +68,8 @@ function Menu() {
     <>
       <Header title={"Create your menu"} />
 
-      <div className="container bg-yellowfade border rounded-lg text-green font-bold pt-2">
+      
+      {isAuthenticated && <div className="mt-8 container bg-yellowfade border rounded-lg text-green font-bold pt-2">
         <div className="flex h-15 justify-evenly p-3">
           <input
             className="w-2/5 text-decoration-line border-b-2 border-green-300 bg-yellowfade px-2 focus:outline-none"
@@ -147,12 +149,11 @@ function Menu() {
           >
             Add a new dish
           </button>
-
           <button
             className="border-solid border-2 rounded-lg p-2"
             onClick={() => addDishToMenu()}
           >
-            Add Dish to menu
+            Submit
           </button>
         </div>
 
@@ -179,7 +180,10 @@ function Menu() {
             <img className="m-5 h-6 w-6" src={plus} alt="" />
           </a>
         </div>
-      </div>
+      </div>}
+      {!isAuthenticated && <p className="mt-5">Please log in to create a new menu</p>}
+      
+      <Footer />
     </>
   );
  
