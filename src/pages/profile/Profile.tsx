@@ -21,7 +21,7 @@ function Profile(){
   })
 
   const [storeCupboard, setStoreCupboard] = useState<IngredientDTO[]>(thisthing);
-  const [customUsername, setCustomUsername] = useState("");
+  // const [customUsername, setCustomUsername] = useState("");
   
   if (isLoading) {
     return <div>Loading ...</div>;
@@ -78,20 +78,20 @@ function Profile(){
       console.log(user)
   }, [storeCupboard]);
 
-  useEffect(() => {
-    const fetchIdToken = async () => {
-      try {
-        if (isAuthenticated) {
-          const claims = await getIdTokenClaims();
-          setCustomUsername(claims?.custom_username!);
-        }
-      } catch (error) {
-        console.error('Error fetching custom name:', error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchIdToken = async () => {
+  //     try {
+  //       if (isAuthenticated) {
+  //         const claims = await getIdTokenClaims();
+  //         setCustomUsername(claims?.custom_username!);
+  //       }
+  //     } catch (error) {
+  //       console.error('Error fetching custom name:', error);
+  //     }
+  //   };
 
-    fetchIdToken();
-  }, [getIdTokenClaims, isAuthenticated]);
+  //   fetchIdToken();
+  // }, [getIdTokenClaims, isAuthenticated]);
 
   return (
     <>
