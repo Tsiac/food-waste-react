@@ -8,7 +8,8 @@ import axios from "axios";
 import { IngredientDTO } from "../../dtos/MenuDTO";
 
 function Profile(){
-  const { getIdTokenClaims, user, isAuthenticated, isLoading } = useAuth0();
+  // const { getIdTokenClaims, user, isAuthenticated, isLoading } = useAuth0();
+  const { user, isLoading } = useAuth0();
   
   const thisthing = [1,2,3,4,5].map((x,i) => {
     const item: IngredientDTO = {
