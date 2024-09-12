@@ -14,7 +14,7 @@ function MenuBrowse(){
     const [menus, setMenus] = useState<MenuDTO[]>([]);
 
     function GetMenus() {
-        axios.get("https://localhost:7101/menus")
+        axios.get("https://food-waste-e3cgb0erb5bnc3am.ukwest-01.azurewebsites.net/menus")
             .then(res => {
                 setMenus(res.data);
             });

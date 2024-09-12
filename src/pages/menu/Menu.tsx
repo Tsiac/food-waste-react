@@ -214,7 +214,7 @@ function Menu() {
 
   function AddMenu() {
     axios
-      .post("https://localhost:7101/menus", menuInfo)
+      .post("https://food-waste-e3cgb0erb5bnc3am.ukwest-01.azurewebsites.net/menus", menuInfo)
       .then((res) => {
         console.log(res);
       })
@@ -279,7 +279,7 @@ function Menu() {
     console.log("sending: ", request);
 
     axios
-      .post("https://localhost:7101/menus", request)
+      .post("https://food-waste-e3cgb0erb5bnc3am.ukwest-01.azurewebsites.net/menus", request)
       .then((res) => {
         console.log(res);
       })

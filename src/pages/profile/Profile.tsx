@@ -29,7 +29,7 @@ function Profile(){
   }
   
   // function GetUserStoreCupboard() {
-  //   axios.get("https://localhost:7101/storecupboard/"+ user?.sub!)
+  //   axios.get("https://food-waste-e3cgb0erb5bnc3am.ukwest-01.azurewebsites.net/storecupboard/"+ user?.sub!)
   //         .then(res => {
   //           console.log(`get {user?.sub!} store cupboard: `,res.data)
   //           setStoreCupboard(res.data);
@@ -39,7 +39,7 @@ function Profile(){
   function UpdateUserStoreCupboard() {
     console.log('store cupboard: ', storeCupboard)
 
-    axios.post("https://localhost:7101/storecupboard/"+ user?.sub!, storeCupboard)
+    axios.post("https://food-waste-e3cgb0erb5bnc3am.ukwest-01.azurewebsites.net/storecupboard/"+ user?.sub!, storeCupboard)
           .then(res => {
             console.log(`updated {user?.sub!} store cupboard: `,res)
           });
