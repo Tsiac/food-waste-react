@@ -26,7 +26,7 @@ function MenuBrowse() {
   const chunkArray = (array: MenuDTO[], chunkSize: number) => {
     const numberOfChunks = Math.ceil(array.length / chunkSize);
 
-    return [...Array(numberOfChunks)].map((value, index) => {
+    return [...Array(numberOfChunks)].map((_, index) => {
       return array.slice(index * chunkSize, (index + 1) * chunkSize);
     });
   };
