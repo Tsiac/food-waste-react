@@ -8,7 +8,7 @@ export default {
     colors: {
       transparent: 'transparent',
       current: 'currentColor',
-      'white': '#F0F7F4',
+      'white': '#FFFFFF',
       'purple': '#270722',
       'grey': '#817F82',
       'yellow': '#F6AE2D',

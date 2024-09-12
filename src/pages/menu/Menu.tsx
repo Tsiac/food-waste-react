@@ -10,6 +10,7 @@ import veg_off from "../../assets/menu/veg-off.svg";
 import plus from "../../assets/menu/plus-solid.svg";
 
 import { useEffect, useState } from "react";
+import { useNavigate  } from "react-router-dom";
 import axios from "axios";
 
 import {
@@ -32,6 +33,8 @@ function Menu() {
 
   const currentDate = new Date().toDateString();
   const [date, setDate] = useState(dayjs(currentDate));
+
+  const navigate = useNavigate();
 
   const [menuInfo, setMenuInfo] = useState<MenuDTO>({
     id: crypto.randomUUID(),
@@ -69,10 +72,10 @@ function Menu() {
       <Header title={"Create your menu"} />
 
       
-      {isAuthenticated && <div className="mt-8 container bg-yellowfade border rounded-lg text-green font-bold pt-2">
+      {isAuthenticated && <div className="mt-8 container bg-white border rounded-lg text-black font-bold pt-2">
         <div className="flex h-15 justify-evenly p-3">
           <input
-            className="w-2/5 text-decoration-line border-b-2 border-green-300 bg-yellowfade px-2 focus:outline-none"
+            className="w-2/5 text-decoration-line border-b-2 border-green-300 bg-white px-2 focus:outline-none"
             onChange={handleMenuNameChange}
             placeholder="Menu Name"
           ></input>
@@ -214,9 +217,9 @@ function Menu() {
 
   function AddMenu() {
     axios
-      .post("https://food-waste-e3cgb0erb5bnc3am.ukwest-01.azurewebsites.net/menus", menuInfo)
+      .post("https://localhost:7101/menus", menuInfo)
       .then((res) => {
-        console.log(res);
+        console.log(res.data.id);
       })
       .catch((e) => {
         console.log(e);
@@ -267,7 +270,6 @@ function Menu() {
   }
 
   function addDishToMenu() {
-    console.log(date)
     let dateString = date.format('DD-MM-YYYY');
 
     let request = {
@@ -276,12 +278,12 @@ function Menu() {
       dateString
     }
 
-    console.log("sending: ", request);
 
     axios
-      .post("https://food-waste-e3cgb0erb5bnc3am.ukwest-01.azurewebsites.net/menus", request)
+      .post("https://localhost:7101/menus", request)
       .then((res) => {
         console.log(res);
+        navigate(`/menu/${res.data.id}`)
       })
       .catch((e) => {
         console.log(e);

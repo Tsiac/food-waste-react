@@ -31,7 +31,7 @@ const ExistingMenu = () => {
   }
 
   function GetMenu() {
-    axios.get(`https://food-waste-e3cgb0erb5bnc3am.ukwest-01.azurewebsites.net/menus/${id}`).then((res) => {
+    axios.get(`https://localhost:7101/menus/${id}`).then((res) => {
       setMenu(res.data);
       setComments(res.data.comments);
       console.log(res.data);
@@ -44,7 +44,7 @@ const ExistingMenu = () => {
       comment: comment,
     };
     axios
-      .post(`https://food-waste-e3cgb0erb5bnc3am.ukwest-01.azurewebsites.net/menus/comment/${id}`, commentSubmitDTO)
+      .post(`https://localhost:7101/menus/comment/${id}`, commentSubmitDTO)
       .then(() => {
         console.log("added comment", comment);
 
@@ -109,7 +109,7 @@ const ExistingMenu = () => {
           )}
         </div>
       </div>
-      <div className="bg-white text-black w-full rounded-xl my-2 border-4 border-yellow flex-col">
+      <div className="bg-white text-black w-full rounded-xl my-2 border-4 flex-col">
         <div className="underline font-bold">Ingredients List</div>
         <div>
           {menu?.dishes.map((dish, i) => {
