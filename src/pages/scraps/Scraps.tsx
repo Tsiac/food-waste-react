@@ -1,14 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Header } from "../../components/Header";
 
-import search from "./assets/veg-on.svg";
 import BlogPostLink from "./components/BlogPostLink";
 
 import eggshells from "./assets/eggshells.jfif";
 import coffee from "./assets/download.jfif";
 
 export const Scraps = () => {
-  const [searchInput, setSearchInput] = useState("initial");
 
   useEffect(() => {}, []);
 
@@ -16,16 +14,12 @@ export const Scraps = () => {
     <>
       <Header title={"Scraps Help"} />
 
-      <div className="w-full bg-white flex">
-        <input
-          className="w-full h-10"
-          type="text"
-          onChange={(e) => setSearchInput(e.target.value)}
-          value={searchInput}
-        />
-        <img className="h-5 w-5 p-1" src={search}></img>
+      <div className="rounded-xl bg-white text-black p-2 mt-4">
+        <p>
+          See the blog posts below for tips on how to reuse some leftover bits
+          and pieces!
+        </p>
       </div>
-
       <BlogPostLink name="Eggshells" img={eggshells} />
       <BlogPostLink name="Coffee" img={coffee} />
     </>

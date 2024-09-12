@@ -109,7 +109,7 @@ const ExistingMenu = () => {
           )}
         </div>
       </div>
-      <div className="bg-white text-black w-full rounded-xl my-2 border-4 border-yellow flex-col">
+      <div className="bg-white text-black w-full rounded-xl my-2 border-4 flex-col">
         <div className="underline font-bold">Ingredients List</div>
         <div>
           {menu?.dishes.map((dish, i) => {

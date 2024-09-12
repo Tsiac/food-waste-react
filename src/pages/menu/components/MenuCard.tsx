@@ -82,7 +82,7 @@ const MenuCard = ({ dateOffset, menuInfo }: MenuCardProps) => {
         </div>
         {isAuthenticated && !isJoined && (
           <button
-            className="bg-yellow text-black mt-1  bpy-1 px-4 rounded-lg"
+            className="bg-yellow text-sm text-black mt-1 mx-1 bpy-1 px-4 rounded-lg"
             onClick={() => SubscribeToMenu(menuInfo.id)}
           >
             Join Menu

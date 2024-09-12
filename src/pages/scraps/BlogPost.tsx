@@ -9,7 +9,7 @@ export const BlogPost = () => {
 
   return (
     <>
-      <Header title={name!} callback="/scraps" />
+      <Header title={name!} callback="/Scraps" />
 
       <div className="w-full bg-white rounded-xl text-left py-2 px-4">
         <p className="text-black font-bold underline my-2">

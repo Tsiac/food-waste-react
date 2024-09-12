@@ -10,6 +10,7 @@ import veg_off from "../../assets/menu/veg-off.svg";
 import plus from "../../assets/menu/plus-solid.svg";
 
 import { useEffect, useState } from "react";
+import { useNavigate  } from "react-router-dom";
 import axios from "axios";
 
 import {
@@ -32,6 +33,8 @@ function Menu() {
 
   const currentDate = new Date().toDateString();
   const [date, setDate] = useState(dayjs(currentDate));
+
+  const navigate = useNavigate();
 
   const [menuInfo, setMenuInfo] = useState<MenuDTO>({
     id: crypto.randomUUID(),
@@ -216,7 +219,7 @@ function Menu() {
     axios
       .post("https://localhost:7101/menus", menuInfo)
       .then((res) => {
-        console.log(res);
+        console.log(res.data.id);
       })
       .catch((e) => {
         console.log(e);
@@ -267,7 +270,6 @@ function Menu() {
   }
 
   function addDishToMenu() {
-    console.log(date)
     let dateString = date.format('DD-MM-YYYY');
 
     let request = {
@@ -276,12 +278,12 @@ function Menu() {
       dateString
     }
 
-    console.log("sending: ", request);
 
     axios
       .post("https://localhost:7101/menus", request)
       .then((res) => {
         console.log(res);
+        navigate(`/menu/${res.data.id}`)
       })
       .catch((e) => {
         console.log(e);
