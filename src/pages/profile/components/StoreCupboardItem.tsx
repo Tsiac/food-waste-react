@@ -9,7 +9,7 @@ type StoreCupboardItemProps = {
 const StoreCupboardItem = ({id, ingredient, quantity, counter, updateItem}: StoreCupboardItemProps) => {
 
   return (
-    <div className="rounded-lg bg-yellowfade p-1 text-black">
+    <div className="rounded-lg bg-white p-1 text-black">
         <div className="">
             <input
               className="w-4/5 my-1"

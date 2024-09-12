@@ -35,7 +35,7 @@ const MenuCard = ({ dateOffset, menuInfo }: MenuCardProps) => {
 
   function SubscribeToMenu(id: string) {
     axios
-      .get(`https://food-waste-e3cgb0erb5bnc3am.ukwest-01.azurewebsites.net/menus/join/${id}/${user?.sub}`)
+      .get(`https://localhost:7101/menus/join/${id}/${user?.sub}`)
       .then(() => {
         setIsJoined(true);
       });
@@ -50,13 +50,14 @@ const MenuCard = ({ dateOffset, menuInfo }: MenuCardProps) => {
   return (
     <>
       <Link to={`/menu/${menuInfo.id}`} className="flex-column w-1/3">
-        <div className="relative rounded-lg bg-yellowfade p-1 mx-2">
-          <span className="text-green font-bold inline-block underline decoration-2">
-            {getDate(dateOffset)}
-          </span>
-          <p className="text-green font-bold inline-block max-w-24 truncate">
+        <div className="relative rounded-lg bg-white p-1 mx-1">
+          
+          <p className="text-black font-bold inline-block max-w-24 h-20 break-words">
             {(menuInfo.name ?? "Zach") + "'s Menu"}
           </p>
+          <span className="text-black inline-block decoration-2">
+            {getDate(dateOffset)}
+          </span>
           <img
             className="rounded-lg mt-2 size-full max-h-20"
             src={images[getRandomIndex()]}
@@ -81,7 +82,7 @@ const MenuCard = ({ dateOffset, menuInfo }: MenuCardProps) => {
         </div>
         {isAuthenticated && !isJoined && (
           <button
-            className="bg-yellow text-purple mt-1  bpy-1 px-4 rounded-lg"
+            className="bg-yellow text-black mt-1  bpy-1 px-4 rounded-lg"
             onClick={() => SubscribeToMenu(menuInfo.id)}
           >
             Join Menu

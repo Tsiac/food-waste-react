@@ -16,7 +16,7 @@ export const Scraps = () => {
     <>
       <Header title={"Scraps Help"} />
 
-      <div className="w-full bg-yellowfade flex">
+      <div className="w-full bg-white flex">
         <input
           className="w-full h-10"
           type="text"

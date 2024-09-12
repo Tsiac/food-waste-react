@@ -29,7 +29,7 @@ function Profile(){
   }
   
   // function GetUserStoreCupboard() {
-  //   axios.get("https://food-waste-e3cgb0erb5bnc3am.ukwest-01.azurewebsites.net/storecupboard/"+ user?.sub!)
+  //   axios.get("https://localhost:7101/storecupboard/"+ user?.sub!)
   //         .then(res => {
   //           console.log(`get {user?.sub!} store cupboard: `,res.data)
   //           setStoreCupboard(res.data);
@@ -39,7 +39,7 @@ function Profile(){
   function UpdateUserStoreCupboard() {
     console.log('store cupboard: ', storeCupboard)
 
-    axios.post("https://food-waste-e3cgb0erb5bnc3am.ukwest-01.azurewebsites.net/storecupboard/"+ user?.sub!, storeCupboard)
+    axios.post("https://localhost:7101/storecupboard/"+ user?.sub!, storeCupboard)
           .then(res => {
             console.log(`updated {user?.sub!} store cupboard: `,res)
           });
@@ -100,7 +100,7 @@ function Profile(){
           title={"Profile"}
       />
 
-<h1 className="mt-5 text-2xl font-bold text-green">YOUR STORE CUPBOARD</h1>
+<h1 className="mt-5 text-2xl font-bold text-black">YOUR STORE CUPBOARD</h1>
 
 
       {/* add this section to isAuthenticated */}
@@ -119,7 +119,7 @@ function Profile(){
             
         })}
         
-      <div className="text-green rounded-lg p-1 mx-2 text-black">
+      <div className="text-black rounded-lg p-1 mx-2 text-black">
         <div className="">
             <button onClick={() => AddNewItem()}>Add new item</button>
             <img src="" className="w-4/5 h-4/5"></img>

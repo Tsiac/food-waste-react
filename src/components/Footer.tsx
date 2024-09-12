@@ -11,10 +11,10 @@ const Footer = () => {
   }
 
   return (
-    <>
+    <div className="mt-2">
       {isAuthenticated && <LogoutButton></LogoutButton>}
       {!isAuthenticated && <LoginButton></LoginButton>}
-    </>
+    </div>
   )
 }
 
