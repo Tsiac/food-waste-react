@@ -55,12 +55,17 @@ function Menu() {
   const handleMenuNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMenuName(event.target.value);
   };
-  useEffect(() => {
-    console.log(user)
-  }, [menuName, isFish, isVeg, isMeat, dishes]);
 
   useEffect(() => {
-  }, []);
+    var newMenu = menuInfo;
+    newMenu.name = menuName;
+    newMenu.isFish = isFish;
+    newMenu.isVeg = isVeg;
+    newMenu.isMeat = isMeat;
+
+    setMenuInfo(newMenu);
+    console.log(user)
+  }, [menuName, isFish, isVeg, isMeat, dishes]);
 
   return (
     <>
