@@ -9,34 +9,32 @@ type Props = {
   callback?: string;
 };
 
+export const Header = ({ title, callback = "/" }: Props) => {
+  const { user, isAuthenticated } = useAuth0();
 
-const { user, isAuthenticated } = useAuth0();
+  return (
+    <>
+      {title !== "Flavour Saver" && (
+        <div className="flex flex-row justify-between mb-2">
+          <BackArrow callback={callback} />
 
-export const Header = ({ title, callback = "/" }: Props) => (
-    
-  
-  <>
-    {title !== "Flavour Saver" && (
-      <div className="flex flex-row justify-between mb-2">
-        <BackArrow callback={callback} />
-
-        <LoginCheck />
-      </div>
-    )}
-    <div className="flex justify-between h-20 w-auto mb-2">
-      <Link to={callback} className="m-auto ">
-        <div>
-          <h1 className="text-4xl font-bold text-yellow mt-2">{title}</h1>
+          <LoginCheck />
         </div>
-      </Link>
-      <Link to={"/profile"}>
-      
-      <img
-      className="object-cover rounded-t-lg h-auto w-20"
-      src={isAuthenticated ? user?.picture! : profile}
-      alt=""
-    />
-      </Link>
-    </div>
-  </>
-);
+      )}
+      <div className="flex justify-between h-20 w-auto mb-2 items-center">
+        <Link to={callback} className="m-auto ">
+          <div>
+            <h1 className="text-4xl font-bold text-yellow mt-2">{title}</h1>
+          </div>
+        </Link>
+        <Link to={"/profile"}>
+          <img
+            className="object-cover rounded-lg h-10 w-10"
+            src={isAuthenticated ? user?.picture! : profile}
+            alt=""
+          />
+        </Link>
+      </div>
+    </>
+  );
+};

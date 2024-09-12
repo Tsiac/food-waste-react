@@ -118,7 +118,7 @@ function Profile(){
             
         })}
         
-      <div className="text-black rounded-lg p-1 mx-2 text-black">
+      <div className="text-black rounded-lg p-1 mx-2">
         <div className="">
             <button onClick={() => AddNewItem()}>Add new item</button>
             <img src="" className="w-4/5 h-4/5"></img>
