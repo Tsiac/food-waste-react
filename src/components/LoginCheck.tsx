@@ -2,7 +2,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import LogoutButton from "./LogoutButton";
 import LoginButton from "./LoginButton";
 
-const Footer = () => {
+const LoginCheck = () => {
     
   const { isAuthenticated, isLoading } = useAuth0();
 
@@ -11,12 +11,12 @@ const Footer = () => {
   }
 
   return (
-    <div className="mt-2">
+    <div className="">
       {isAuthenticated && <LogoutButton></LogoutButton>}
       {!isAuthenticated && <LoginButton></LoginButton>}
     </div>
   )
 }
 
-export default Footer
+export default LoginCheck
 

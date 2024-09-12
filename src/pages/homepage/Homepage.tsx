@@ -9,6 +9,7 @@ function HomePage() {
   return (
     <>
       <Header title={"Flavour Saver"} />
+      <h2 className="text-basic mt-5">SAVING TASTE FROM WASTE</h2>
 
       <HomePageCard link={"/browse-menus"} text={"find a menu"} img={worldveg} />
       <HomePageCard link={"/menu"} text={"create your menu"} img={recipe} />

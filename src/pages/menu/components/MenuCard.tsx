@@ -52,8 +52,8 @@ const MenuCard = ({ dateOffset, menuInfo }: MenuCardProps) => {
       <Link to={`/menu/${menuInfo.id}`} className="flex-column w-1/3">
         <div className="relative rounded-lg bg-white p-1 mx-1">
           
-          <p className="text-black font-bold inline-block max-w-24 h-20 break-words">
-            {(menuInfo.name ?? "Zach") + "'s Menu"}
+          <p className="text-black font-bold inline-block max-w-24 h-14 break-words">
+            {menuInfo.username + "'s Menu"}
           </p>
           <span className="text-black inline-block decoration-2">
             {getDate(dateOffset)}

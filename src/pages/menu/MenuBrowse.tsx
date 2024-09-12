@@ -4,7 +4,6 @@ import { MenuDTO } from "../../dtos/MenuDTO";
 import axios from "axios";
 
 import MenuCard from "./components/MenuCard";
-import Footer from "../../components/Footer";
 // import { useAuth0 } from "@auth0/auth0-react";
 
 function MenuBrowse() {
@@ -65,7 +64,6 @@ function MenuBrowse() {
           </div>
         );
       })}
-      <Footer />
     </>
   );
 }

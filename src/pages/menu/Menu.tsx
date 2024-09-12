@@ -19,7 +19,6 @@ import {
 import dayjs from "dayjs";
 import { DishDTO, IngredientDTO, MenuDTO } from "../../dtos/MenuDTO";
 import { useAuth0 } from "@auth0/auth0-react";
-import Footer from "../../components/Footer";
 
 function Menu() {
   
@@ -38,7 +37,7 @@ function Menu() {
 
   const [menuInfo, setMenuInfo] = useState<MenuDTO>({
     id: crypto.randomUUID(),
-    username: user?.sub!,
+    username: user?.custom_username!,
     name: "",
     isComplete: false,
     isVeg: false,
@@ -56,16 +55,12 @@ function Menu() {
   const handleMenuNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMenuName(event.target.value);
   };
+  useEffect(() => {
+    console.log(user)
+  }, [menuName, isFish, isVeg, isMeat, dishes]);
 
   useEffect(() => {
-    var newMenu = menuInfo;
-    newMenu.name = menuName;
-    newMenu.isFish = isFish;
-    newMenu.isVeg = isVeg;
-    newMenu.isMeat = isMeat;
-
-    setMenuInfo(newMenu);
-  }, [menuName, isFish, isVeg, isMeat, dishes]);
+  }, []);
 
   return (
     <>
@@ -186,7 +181,6 @@ function Menu() {
       </div>}
       {!isAuthenticated && <p className="mt-5">Please log in to create a new menu</p>}
       
-      <Footer />
     </>
   );
  

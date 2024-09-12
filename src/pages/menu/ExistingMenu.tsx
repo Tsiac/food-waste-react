@@ -12,7 +12,6 @@ import fish from "./assets/fish-off.svg";
 import meat from "./assets/meat-off.svg";
 import veg from "./assets/veg-off.svg";
 import { useAuth0 } from "@auth0/auth0-react";
-import Footer from "../../components/Footer";
 
 const ExistingMenu = () => {
   const { getIdTokenClaims, isAuthenticated } = useAuth0();
@@ -174,7 +173,6 @@ const ExistingMenu = () => {
         
       </div>
       
-      <Footer />
     </>
   );
 };

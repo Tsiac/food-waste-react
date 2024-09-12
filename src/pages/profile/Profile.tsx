@@ -2,7 +2,6 @@ import { Header } from "../../components/Header";
 
 import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import Footer from "../../components/Footer";
 import StoreCupboardItem from "./components/StoreCupboardItem";
 import axios from "axios";
 import { IngredientDTO } from "../../dtos/MenuDTO";
@@ -142,7 +141,6 @@ function Profile(){
         <div>{JSON.stringify(user)}</div>
         </div>}
        */}
-      <Footer />
     </>
   )
 }
