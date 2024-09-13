@@ -48,7 +48,8 @@ function Menu() {
       user?.sub!
     ],
     dishes: [],
-    comments: []
+    comments: [],
+    dateString: ""
   });
   const [dishes, setDishes] = useState<Array<DishDTO>>([]);
 
@@ -216,7 +217,7 @@ function Menu() {
 
   function AddMenu() {
     axios
-      .post("https://food-waste-e3cgb0erb5bnc3am.ukwest-01.azurewebsites.net/menus", menuInfo)
+      .post("https://localhost:7101/menus", menuInfo)
       .then((res) => {
         console.log(res.data.id);
       })
@@ -279,7 +280,7 @@ function Menu() {
 
 
     axios
-      .post("https://food-waste-e3cgb0erb5bnc3am.ukwest-01.azurewebsites.net/menus", request)
+      .post("https://localhost:7101/menus", request)
       .then((res) => {
         console.log(res);
         navigate(`/menu/${res.data.id}`)

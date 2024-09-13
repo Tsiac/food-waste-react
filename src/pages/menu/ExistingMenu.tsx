@@ -30,7 +30,7 @@ const ExistingMenu = () => {
   }
 
   function GetMenu() {
-    axios.get(`https://food-waste-e3cgb0erb5bnc3am.ukwest-01.azurewebsites.net/menus/${id}`).then((res) => {
+    axios.get(`https://localhost:7101/menus/${id}`).then((res) => {
       setMenu(res.data);
       setComments(res.data.comments);
       console.log(res.data);
@@ -43,7 +43,7 @@ const ExistingMenu = () => {
       comment: comment,
     };
     axios
-      .post(`https://food-waste-e3cgb0erb5bnc3am.ukwest-01.azurewebsites.net/menus/comment/${id}`, commentSubmitDTO)
+      .post(`https://localhost:7101/menus/comment/${id}`, commentSubmitDTO)
       .then(() => {
         console.log("added comment", comment);
 
@@ -86,7 +86,8 @@ const ExistingMenu = () => {
   return (
     <>
       <Header title={"Menu"} callback={"/browse-menus"} />
-      <h1 className="text-xl text-yellow underline">{menu?.name}</h1>
+      <h1 className="text-xl text-yellow">{menu?.name}</h1>
+      <p className="text-yellow">{menu?.dateString}</p>
       <div className="relative">
         <img src={chicken} className="w-full h-40 rounded-xl my-2"></img>
 
@@ -133,6 +134,22 @@ const ExistingMenu = () => {
         </div>
       </div>
 
+      <div className="bg-white text-black w-full rounded-xl my-2">
+        <div className="underline font-bold">Joined Cupboards</div>
+        {menu?.attendees.map((name, i) => {
+          return (
+            <div key={i} className="flex flex-col">
+              <div className="flex underline pl-2">{name}</div>
+              <div className="flex">
+                <ul className="list-disc pl-6">
+                  <li>chicken 400g</li>
+                </ul>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
       <div className="bg-white text-black w-full rounded-xl my-2 border-4 border-yellow flex-col">
         <div className="underline font-bold">Comments</div>
         <div className="divide-y">
@@ -167,12 +184,13 @@ const ExistingMenu = () => {
               </button>
             </div>
           )}
-          {!isAuthenticated && <p className="p-1 bg-yellow text-purple">please log in to comment</p>}
-
+          {!isAuthenticated && (
+            <p className="p-1 bg-yellow text-purple">
+              please log in to comment
+            </p>
+          )}
         </div>
-        
       </div>
-      
     </>
   );
 };

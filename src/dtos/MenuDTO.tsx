@@ -9,7 +9,8 @@ export interface MenuDTO {
     maxAttendees: number,
     attendees: string[],
     dishes: DishDTO[],
-    comments: Comment[]
+    comments: Comment[],
+    dateString: string
 }
 
 export interface DishDTO {
@@ -23,6 +24,13 @@ export interface IngredientDTO {
     id: string,
     name: string,
     quantity: string,
+    counter: string
+}
+
+export interface Ingredient2DTO {
+    id: string,
+    name: string,
+    quantity: number,
     counter: string
 }
 
