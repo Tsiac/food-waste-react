@@ -17,7 +17,7 @@ function MenuBrowse() {
   }
 
   function GetMenus() {
-    axios.get("https://localhost:7101/menus").then((res) => {
+    axios.get("https://food-waste-e3cgb0erb5bnc3am.ukwest-01.azurewebsites.net:7101/menus").then((res) => {
       setMenus(res.data);
     });
   }
