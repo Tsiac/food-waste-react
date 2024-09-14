@@ -16,8 +16,6 @@ type StoreCupboardItemProps = {
 
 const StoreCupboardItem = ({id, ingredient, quantity, counter, updateItem, deleteItem, changeValue,changeCounter}: StoreCupboardItemProps) => {
 
-  const [index, setIndex] = useState<number>(0)
-
 
   return (
     <div className="bg-white rounded-xl text-black my-1">
@@ -35,7 +33,7 @@ const StoreCupboardItem = ({id, ingredient, quantity, counter, updateItem, delet
             <button
               name="value"
               className="bg-yellow border-black border-2 rounded-xl leading-none w-5 h-5 px-1 my-1"
-              // onClick={() => ChangeValueSelection(false)}
+              onClick={() => changeValue(false)}
             >
               -
             </button>
