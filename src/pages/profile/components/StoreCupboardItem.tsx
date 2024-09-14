@@ -1,5 +1,3 @@
-
-import { useState } from "react";
 import bin from "../assets/bin.svg";
 
 type StoreCupboardItemProps = {
