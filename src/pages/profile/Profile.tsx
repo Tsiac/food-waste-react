@@ -10,34 +10,23 @@ function Profile() {
   // const { getIdTokenClaims, user, isAuthenticated, isLoading } = useAuth0();
   const { user, isLoading } = useAuth0();
 
-  // const thisthing = [1, 2, 3, 4, 5].map((x, i) => {
-  //   const item: IngredientDTO = {
-  //     id: i.toString(),
-  //     name: x.toString(),
-  //     quantity: x.toString(),
-  //     counter: x.toString(),
-  //   };
-  //   return item;
-  // });
+  // const thisthing: Ingredient2DTO[] = [
+  //   {
+  //     id: crypto.randomUUID(),  
+  //     name: "chicken",
+  //     quantity: 400,
+  //     counter: "g",
+  //     currentCounterIndex: 0,
+  //   },
+  //   {
+  //     id: crypto.randomUUID(),
+  //     name: "lemon",
+  //     quantity: 1,
+  //     counter: "",
+  //     currentCounterIndex: 0,
+  //   },
+  // ];
 
-  const thisthing: Ingredient2DTO[] = [
-    {
-      id: "1",
-      name: "chicken",
-      quantity: 400,
-      counter: "g",
-      currentCounterIndex: 0
-    },
-    {
-      id: "2",
-      name: "lemon",
-      quantity: 1,
-      counter: "",
-      currentCounterIndex: 0
-    }
-  ];
-
-  
   const cookingMeasurements = [
     "g", // gram
     "kg", // kilogram
@@ -48,29 +37,18 @@ function Profile() {
     "", // blank - i.e. 1 lemon
   ];
 
-  
-  // function ChangeMeasurementSelection(
-  //   increase: boolean
-  // ) {
-  //   let valueChange = increase ? 1 : -1;
-  //   let newIndex = (index + valueChange) % cookingMeasurements.length;
-
-  //   setIndex(newIndex);
-  // }
-
-  function UpdateCounter(
-    id: string,
-    increase: boolean
-  ) {
+  function UpdateCounter(id: string, increase: boolean) {
     const newStoreCupboardItems = storeCupboard.map((item) => {
       if (item.id === id) {
         let valueChange = increase ? 1 : -1;
-        let index = item.currentCounterIndex
+        let index = item.currentCounterIndex;
         let newIndex = (index + valueChange) % cookingMeasurements.length;
 
-        
-        console.log(id, increase, valueChange, index, cookingMeasurements[index], newIndex, cookingMeasurements[newIndex] )
-        return { ...item, counter: cookingMeasurements[newIndex] };
+        return {
+          ...item,
+          counter: cookingMeasurements[newIndex],
+          currentCounterIndex: newIndex,
+        };
       }
 
       return item;
@@ -79,16 +57,15 @@ function Profile() {
     setStoreCupboard(newStoreCupboardItems);
   }
 
-  function UpdateValue(
-    id: string,
-    increase: boolean
-  ) {
+  function UpdateValue(id: string, increase: boolean) {
     const newStoreCupboardItems = storeCupboard.map((item) => {
       if (item.id === id) {
         let directionChange = increase ? 1 : -1;
-        let value = item.quantity
+        let value = Number(item.quantity);
         let newValue = value + 10 * directionChange;
-        return { ...item, value: newValue };
+
+        console.log(id, increase, directionChange, value, newValue)
+        return { ...item, quantity: newValue };
       }
 
       return item;
@@ -96,41 +73,30 @@ function Profile() {
 
     setStoreCupboard(newStoreCupboardItems);
   }
+
   const [storeCupboard, setStoreCupboard] =
-    useState<Ingredient2DTO[]>(thisthing);
+    useState<Ingredient2DTO[]>([]);
   // const [customUsername, setCustomUsername] = useState("");
 
   if (isLoading) {
     return <div>Loading ...</div>;
   }
 
-  // const [index, setIndex] = useState<number>(0);
-  // const [value, setValue] = useState<number>(0);
-  // const [text, setText] = useState<string>("chicken");
-
-  // function ChangeValueSelection(increase: boolean) {
-  //   let directionChange = increase ? 1 : -1;
-  //   let newValue = value + 10 * directionChange;
-  //   console.log(newValue);
-  //   setValue(newValue);
-  // }
-
-
-  // function GetUserStoreCupboard() {
-  //   axios.get("https://food-waste-e3cgb0erb5bnc3am.ukwest-01.azurewebsites.net/storecupboard/"+ user?.sub!)
-  //         .then(res => {
-  //           console.log(`get {user?.sub!} store cupboard: `,res.data)
-  //           setStoreCupboard(res.data);
-  //         });
-  // }
+  function GetUserStoreCupboard() {
+    axios.get("https://food-waste-e3cgb0erb5bnc3am.ukwest-01.azurewebsites.net/storecupboard/"+ user?.custom_username!)
+          .then(res => {
+            console.log(`get ${user?.custom_username!} store cupboard: `,res.data.storeCupboard)
+            setStoreCupboard(res.data.storeCupboard);
+          });
+  }
 
   function UpdateUserStoreCupboard() {
-    // console.log("store cupboard: ", storeCupboard);
 
     axios
-      .post("https://food-waste-e3cgb0erb5bnc3am.ukwest-01.azurewebsites.net/storecupboard/" + user?.sub!, storeCupboard)
+      .post("https://food-waste-e3cgb0erb5bnc3am.ukwest-01.azurewebsites.net/storecupboard/" + user?.custom_username!, storeCupboard)
       .then((res) => {
-        console.log(`updated {user?.sub!} store cupboard: `, res);
+        console.log(`updated ${user?.custom_username!} store cupboard: `, res);
+        // setStoreCupboard(res.data);
       });
   }
 
@@ -153,43 +119,26 @@ function Profile() {
     const newStoreCupboard = [...storeCupboard];
 
     newStoreCupboard.push({
-      id: storeCupboard.length.toString(),
+      id: crypto.randomUUID(),
       quantity: 0,
-      counter: "",
+      counter: "g",
       name: "name",
-      currentCounterIndex: 0
+      currentCounterIndex: 0,
     });
 
     setStoreCupboard(newStoreCupboard);
   }
-  function DeleteItem(id: string){
+  function DeleteItem(id: string) {
     const newStoreCupboard = [...storeCupboard];
 
-    let removed = newStoreCupboard.filter(item => item.id !== id)
-    
+    let removed = newStoreCupboard.filter((item) => item.id !== id);
+
     setStoreCupboard(removed);
   }
   useEffect(() => {
-    // GetUserStoreCupboard();
-    // console.log("store cupboard: ", storeCupboard);
-
+    GetUserStoreCupboard();
     // console.log(user);
-  }, [storeCupboard]);
-
-  // useEffect(() => {
-  //   const fetchIdToken = async () => {
-  //     try {
-  //       if (isAuthenticated) {
-  //         const claims = await getIdTokenClaims();
-  //         setCustomUsername(claims?.custom_username!);
-  //       }
-  //     } catch (error) {
-  //       console.error('Error fetching custom name:', error);
-  //     }
-  //   };
-
-  //   fetchIdToken();
-  // }, [getIdTokenClaims, isAuthenticated]);
+  }, []);
 
   return (
     <>
@@ -198,62 +147,6 @@ function Profile() {
       <h1 className="mt-5 text-2xl font-bold text-yellow">
         YOUR STORE CUPBOARD
       </h1>
-
-      {/* <div className="bg-green mt-2 grid grid-cols-3 gap-3">
-        <div className="bg-white rounded-xl text-black my-1">
-          <div className="flex justify-center">
-            <input
-              className=" text-black w-4/5 px-1 my-1 text-center"
-              type="text"
-              onChange={(e) => setText(e.target.value)}
-              name="ingredient"
-              value={text}
-            ></input>
-          </div>
-
-          <div className="flex justify-between items-center px-2 align-middle my-1">
-            <button
-              className="bg-yellow border-black border-2 rounded-xl leading-none w-5 h-5 px-1 my-1"
-              onClick={() => ChangeValueSelection(false)}
-            >
-              -
-            </button>
-            <input
-              className=" text-black w-4/5 px-1 my-1 text-center"
-              type="number"
-              onChange={(e) => setValue(Number(e.target.value))}
-              name="v"
-              value={value}
-            ></input>
-            <button
-              className="bg-yellow border-black border-2 rounded-xl leading-none w-5 h-5 px-1 my-1"
-              onClick={() => ChangeValueSelection(true)}
-            >
-              +
-            </button>
-          </div>
-
-          <div className="flex justify-between items-center px-2 align-middle my-1">
-            <button
-              className="bg-yellow border-black border-2 rounded-xl leading-none w-5 h-5 px-1 my-1"
-              onClick={() => ChangeMeasurementSelection(false)}
-            >
-              &lt;
-            </button>
-            <div className="items-center">{cookingMeasurements[index]}</div>
-            <button
-              className="bg-yellow border-black border-2 rounded-xl leading-none w-5 h-5 px-1 my-1"
-              onClick={() => ChangeMeasurementSelection(true)}
-            >
-              &gt;
-            </button>
-          </div>
-
-          <div className="flex justify-center">
-            <img className="h-5 w-5 my-1" src={bin}></img>
-          </div>
-        </div>
-      </div> */}
 
       <div className="mt-5 mb-2 grid grid-cols-3 gap-3">
         {storeCupboard &&
@@ -265,6 +158,7 @@ function Profile() {
                   ingredient={x.name}
                   quantity={x.quantity}
                   counter={x.counter}
+                  counterIndex={x.currentCounterIndex}
                   updateItem={SetStoreCupboardItem}
                   deleteItem={DeleteItem}
                   changeCounter={UpdateCounter}
@@ -285,18 +179,6 @@ function Profile() {
           </button>
         </div>
       </div>
-
-      {/* {isAuthenticated && 
-        <div className="mt-10">
-          <p>username: {user!.name}</p>
-          <p>nickname: {user!.username}</p>
-          <p>email: {user!.email}</p>
-          <p>user_id: {user!.sub}</p>
-          <p>idToken: {customUsername}</p>
-          
-        <div>{JSON.stringify(user)}</div>
-        </div>}
-       */}
     </>
   );
 }

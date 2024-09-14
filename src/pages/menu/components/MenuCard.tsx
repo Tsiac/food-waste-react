@@ -35,14 +35,14 @@ const MenuCard = ({ dateOffset, menuInfo }: MenuCardProps) => {
 
   function SubscribeToMenu(id: string) {
     axios
-      .get(`https://food-waste-e3cgb0erb5bnc3am.ukwest-01.azurewebsites.net/menus/join/${id}/${user?.sub}`)
+      .get(`https://food-waste-e3cgb0erb5bnc3am.ukwest-01.azurewebsites.net/menus/join/${id}/${user?.custom_username}`)
       .then(() => {
         setIsJoined(true);
       });
   }
 
   useEffect(() => {
-    if (menuInfo.attendees.indexOf(user?.sub!) > -1) {
+    if (menuInfo.attendees.indexOf(user?.custom_username!) > -1) {
       setIsJoined(true);
     }
   }, []);

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { CommentDTO, MenuDTO } from "../../dtos/MenuDTO";
+import { CommentDTO, MenuDTO, PersonDTO } from "../../dtos/MenuDTO";
 import axios from "axios";
 import { Header } from "../../components/Header";
 
@@ -20,7 +20,8 @@ const ExistingMenu = () => {
   const [menu, setMenu] = useState<MenuDTO>();
   const [comments, setComments] = useState<CommentDTO[]>([]);
   const [comment, setComment] = useState<string>("");
-  const [customUsername, setCustomUsername] = useState("");
+  const [customUsername, setCustomUsername] = useState<string>("");
+  const [storeCupboards, setStoreCupboards] = useState<PersonDTO[]>([]);
 
   function ParseAndReformatDate(dateString: string) {
     if (dateString === "just now") return dateString;
@@ -30,11 +31,34 @@ const ExistingMenu = () => {
   }
 
   function GetMenu() {
-    axios.get(`https://food-waste-e3cgb0erb5bnc3am.ukwest-01.azurewebsites.net/menus/${id}`).then((res) => {
-      setMenu(res.data);
-      setComments(res.data.comments);
-      console.log(res.data);
-    });
+    axios
+      .get(`https://food-waste-e3cgb0erb5bnc3am.ukwest-01.azurewebsites.net/menus/${id}`)
+      .then((res) => {
+        setMenu(res.data);
+        setComments(res.data.comments);
+        console.log(res.data);
+        return res
+      })
+      .then((res) => {
+        res.data.attendees.map((name : string, _: any) => {
+        axios
+          .get(`https://food-waste-e3cgb0erb5bnc3am.ukwest-01.azurewebsites.net/storecupboard/${name}`)
+          .then((res) => {
+            console.log("attendee", res);
+  
+            let existingStoreCupboards = [...storeCupboards];
+  
+            if (!storeCupboards.some((c) => c.id === res.data.id)) {
+              existingStoreCupboards.push(res.data);
+            }
+  
+            console.log("ex", existingStoreCupboards);
+  
+            setStoreCupboards(existingStoreCupboards);
+          })
+          .catch();
+      });
+      });
   }
 
   function SubmitComment() {
@@ -66,6 +90,8 @@ const ExistingMenu = () => {
 
   useEffect(() => {
     GetMenu();
+
+    console.log("sc:", storeCupboards);
   }, []);
 
   useEffect(() => {
@@ -134,21 +160,25 @@ const ExistingMenu = () => {
         </div>
       </div>
 
-      <div className="bg-white text-black w-full rounded-xl my-2">
-        <div className="underline font-bold">Joined Cupboards</div>
-        {menu?.attendees.map((name, i) => {
-          return (
-            <div key={i} className="flex flex-col">
-              <div className="flex underline pl-2">{name}</div>
-              <div className="flex">
-                <ul className="list-disc pl-6">
-                  <li>chicken 400g</li>
-                </ul>
+      {storeCupboards && (
+        <div className="bg-white text-black w-full rounded-xl my-2">
+          <div className="underline font-bold">Joined Cupboards</div>
+          {storeCupboards.map((person, i) => {
+            return (
+              <div key={i} className="flex flex-col">
+                <div className="flex underline pl-2">{person.id}</div>
+                <div className="flex">
+                  <ul className="list-disc pl-6 text-left">
+                    {person.storeCupboard.map((item, j) => {
+                      return <li>{item.name} {item.quantity}{item.counter}</li>;
+                    })}
+                  </ul>
+                </div>
               </div>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
+      )}
 
       <div className="bg-white text-black w-full rounded-xl my-2 border-4 border-yellow flex-col">
         <div className="underline font-bold">Comments</div>

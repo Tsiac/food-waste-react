@@ -41,3 +41,8 @@ export interface CommentDTO {
     comment: string,
     dateCreated: string
 }
+
+export interface PersonDTO {
+    id: string,
+    storeCupboard: IngredientDTO[]
+}
