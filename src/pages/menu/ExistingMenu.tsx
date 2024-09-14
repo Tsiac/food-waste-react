@@ -169,7 +169,7 @@ const ExistingMenu = () => {
                 <div className="flex underline pl-2">{person.id}</div>
                 <div className="flex">
                   <ul className="list-disc pl-6 text-left">
-                    {person.storeCupboard.map((item, j) => {
+                    {person.storeCupboard.map((item, _) => {
                       return <li>{item.name} {item.quantity}{item.counter}</li>;
                     })}
                   </ul>
