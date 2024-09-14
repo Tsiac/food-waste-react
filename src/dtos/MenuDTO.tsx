@@ -31,7 +31,8 @@ export interface Ingredient2DTO {
     id: string,
     name: string,
     quantity: number,
-    counter: string
+    counter: string,
+    currentCounterIndex: number
 }
 
 export interface CommentDTO {

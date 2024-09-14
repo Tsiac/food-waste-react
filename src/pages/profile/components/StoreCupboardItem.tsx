@@ -1,4 +1,5 @@
 
+import { useState } from "react";
 import bin from "../assets/bin.svg";
 
 type StoreCupboardItemProps = {
@@ -7,20 +8,16 @@ type StoreCupboardItemProps = {
     quantity: number,
     counter: string,
     updateItem: Function,
-    deleteItem: Function
+    deleteItem: Function,
+    changeValue: Function,
+    changeCounter: Function
 }
 
-const StoreCupboardItem = ({id, ingredient, quantity, counter, updateItem, deleteItem}: StoreCupboardItemProps) => {
 
-  const cookingMeasurements = [
-    "tsp", // teaspoon
-    "tbsp", // tablespoon
-    "ml", // milliliter
-    "l", // liter
-    "g", // gram
-    "kg", // kilogram
-    "", // blank - i.e. 1 lemon
-  ];
+const StoreCupboardItem = ({id, ingredient, quantity, counter, updateItem, deleteItem, changeValue,changeCounter}: StoreCupboardItemProps) => {
+
+  const [index, setIndex] = useState<number>(0)
+
 
   return (
     <div className="bg-white rounded-xl text-black my-1">
@@ -60,7 +57,7 @@ const StoreCupboardItem = ({id, ingredient, quantity, counter, updateItem, delet
           <div className="flex justify-between items-center px-2 align-middle my-1">
             <button
               className="bg-yellow border-black border-2 rounded-xl leading-none w-5 h-5 px-1 my-1"
-              // onClick={() => ChangeMeasurementSelection(false)}
+              onClick={() => changeCounter(id, false)}
             >
               &lt;
             </button>
@@ -73,7 +70,7 @@ const StoreCupboardItem = ({id, ingredient, quantity, counter, updateItem, delet
             ></input> 
             <button
               className="bg-yellow border-black border-2 rounded-xl leading-none w-5 h-5 px-1 my-1"
-              // onClick={() => ChangeMeasurementSelection(true)}
+              onClick={() => changeCounter(id, true)}
             >
               &gt;
             </button>

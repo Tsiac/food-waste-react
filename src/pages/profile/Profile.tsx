@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import StoreCupboardItem from "./components/StoreCupboardItem";
 import axios from "axios";
-import { Ingredient2DTO, IngredientDTO } from "../../dtos/MenuDTO";
+import { Ingredient2DTO } from "../../dtos/MenuDTO";
 
 function Profile() {
   // const { getIdTokenClaims, user, isAuthenticated, isLoading } = useAuth0();
@@ -26,15 +26,76 @@ function Profile() {
       name: "chicken",
       quantity: 400,
       counter: "g",
+      currentCounterIndex: 0
     },
     {
       id: "2",
       name: "lemon",
       quantity: 1,
       counter: "",
+      currentCounterIndex: 0
     }
   ];
 
+  
+  const cookingMeasurements = [
+    "g", // gram
+    "kg", // kilogram
+    "ml", // milliliter
+    "l", // liter
+    "tsp", // teaspoon
+    "tbsp", // tablespoon
+    "", // blank - i.e. 1 lemon
+  ];
+
+  
+  // function ChangeMeasurementSelection(
+  //   increase: boolean
+  // ) {
+  //   let valueChange = increase ? 1 : -1;
+  //   let newIndex = (index + valueChange) % cookingMeasurements.length;
+
+  //   setIndex(newIndex);
+  // }
+
+  function UpdateCounter(
+    id: string,
+    increase: boolean
+  ) {
+    const newStoreCupboardItems = storeCupboard.map((item) => {
+      if (item.id === id) {
+        let valueChange = increase ? 1 : -1;
+        let index = item.currentCounterIndex
+        let newIndex = (index + valueChange) % cookingMeasurements.length;
+
+        
+        console.log(id, increase, valueChange)
+        return { ...item, counter: cookingMeasurements[newIndex] };
+      }
+
+      return item;
+    });
+
+    setStoreCupboard(newStoreCupboardItems);
+  }
+
+  function UpdateValue(
+    id: string,
+    increase: boolean
+  ) {
+    const newStoreCupboardItems = storeCupboard.map((item) => {
+      if (item.id === id) {
+        let directionChange = increase ? 1 : -1;
+        let value = item.quantity
+        let newValue = value + 10 * directionChange;
+        return { ...item, value: newValue };
+      }
+
+      return item;
+    });
+
+    setStoreCupboard(newStoreCupboardItems);
+  }
   const [storeCupboard, setStoreCupboard] =
     useState<Ingredient2DTO[]>(thisthing);
   // const [customUsername, setCustomUsername] = useState("");
@@ -54,16 +115,6 @@ function Profile() {
   //   setValue(newValue);
   // }
 
-  // function ChangeMeasurementSelection(
-  //   // storeCupboardIndex:number,
-  //   // measurementIndex:number,
-  //   increase: boolean
-  // ) {
-  //   let valueChange = increase ? 1 : -1;
-  //   let newIndex = (index + valueChange) % cookingMeasurements.length;
-
-  //   setIndex(newIndex);
-  // }
 
   // function GetUserStoreCupboard() {
   //   axios.get("https://localhost:7101/storecupboard/"+ user?.sub!)
@@ -74,7 +125,7 @@ function Profile() {
   // }
 
   function UpdateUserStoreCupboard() {
-    console.log("store cupboard: ", storeCupboard);
+    // console.log("store cupboard: ", storeCupboard);
 
     axios
       .post("https://localhost:7101/storecupboard/" + user?.sub!, storeCupboard)
@@ -106,6 +157,7 @@ function Profile() {
       quantity: 0,
       counter: "",
       name: "name",
+      currentCounterIndex: 0
     });
 
     setStoreCupboard(newStoreCupboard);
@@ -119,9 +171,9 @@ function Profile() {
   }
   useEffect(() => {
     // GetUserStoreCupboard();
-    console.log("store cupboard: ", storeCupboard);
+    // console.log("store cupboard: ", storeCupboard);
 
-    console.log(user);
+    // console.log(user);
   }, [storeCupboard]);
 
   // useEffect(() => {
@@ -215,6 +267,8 @@ function Profile() {
                   counter={x.counter}
                   updateItem={SetStoreCupboardItem}
                   deleteItem={DeleteItem}
+                  changeCounter={UpdateCounter}
+                  changeValue={UpdateValue}
                 />
               </div>
             );
