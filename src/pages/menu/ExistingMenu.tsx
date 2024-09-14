@@ -32,34 +32,48 @@ const ExistingMenu = () => {
 
   function GetMenu() {
     axios
-      .get(`https://food-waste-e3cgb0erb5bnc3am.ukwest-01.azurewebsites.net/menus/${id}`)
+      .get(
+        `https://food-waste-e3cgb0erb5bnc3am.ukwest-01.azurewebsites.net/menus/${id}`
+      )
       .then((res) => {
         setMenu(res.data);
         setComments(res.data.comments);
         console.log(res.data);
-        return res
+        return res;
       })
       .then((res) => {
-        res.data.attendees.map((name : string, _: any) => {
-        axios
-          .get(`https://food-waste-e3cgb0erb5bnc3am.ukwest-01.azurewebsites.net/storecupboard/${name}`)
-          .then((res) => {
-            console.log("attendee", res);
-  
-            let existingStoreCupboards = [...storeCupboards];
-  
-            if (!storeCupboards.some((c) => c.id === res.data.id)) {
-              existingStoreCupboards.push(res.data);
-            }
-  
-            console.log("ex", existingStoreCupboards);
-  
-            setStoreCupboards(existingStoreCupboards);
-          })
-          .catch();
-      });
+        res.data.attendees.map((name: string, _: any) => {
+          axios
+            .get(
+              `https://food-waste-e3cgb0erb5bnc3am.ukwest-01.azurewebsites.net/storecupboard/${name}`
+            )
+            .then((res) => {
+              console.log("attendee", res);
+              console.log("existing", storeCupboards);
+
+              if (!storeCupboards.some((c) => c.id === res.data.id)) {
+                setStoreCupboards((existingItems) => [
+                  ...existingItems,
+                  res.data,
+                ]);
+              }
+
+              console.log("new", storeCupboards);
+            })
+            .then(() => {
+              setStoreCupboards((items) => removeDuplicates(items));
+            });
+        });
       });
   }
+  const removeDuplicates = (array: PersonDTO[]): PersonDTO[] => {
+    const seen = new Set<string>();
+    return array.filter((item) => {
+      const duplicate = seen.has(item.id);
+      seen.add(item.id);
+      return !duplicate;
+    });
+  };
 
   function SubmitComment() {
     let commentSubmitDTO = {
@@ -67,7 +81,10 @@ const ExistingMenu = () => {
       comment: comment,
     };
     axios
-      .post(`https://food-waste-e3cgb0erb5bnc3am.ukwest-01.azurewebsites.net/menus/comment/${id}`, commentSubmitDTO)
+      .post(
+        `https://food-waste-e3cgb0erb5bnc3am.ukwest-01.azurewebsites.net/menus/comment/${id}`,
+        commentSubmitDTO
+      )
       .then(() => {
         console.log("added comment", comment);
 
@@ -170,7 +187,12 @@ const ExistingMenu = () => {
                 <div className="flex">
                   <ul className="list-disc pl-6 text-left">
                     {person.storeCupboard.map((item, _) => {
-                      return <li>{item.name} {item.quantity}{item.counter}</li>;
+                      return (
+                        <li>
+                          {item.name} {item.quantity}
+                          {item.counter}
+                        </li>
+                      );
                     })}
                   </ul>
                 </div>
